@@ -38,33 +38,42 @@
 /* Cards grid */
 .cards-section {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  padding: 4px 30px 30px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  padding: 0 0 24px;
   align-items: start;
 }
 
 .stat-card {
   border-radius: 20px;
-  padding: 28px 24px 22px;
+  padding: 26px 22px 20px;
   display: flex;
   flex-direction: column;
   gap: 10px;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 24px rgba(0,0,0,.10);
+  box-shadow: 0 4px 24px rgba(46, 62, 35, .12);
   transition: transform .25s, box-shadow .25s;
-  min-height: 180px;
+  min-height: 168px;
+  animation: card-in .5s ease both;
+}
+.stat-card:nth-child(2) { animation-delay: .06s; }
+.stat-card:nth-child(3) { animation-delay: .12s; }
+.stat-card:nth-child(4) { animation-delay: .18s; }
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
 }
 .stat-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 14px 40px rgba(0,0,0,.16);
+  box-shadow: 0 14px 40px rgba(46, 62, 35, .18);
 }
 
-.stat-card.delivered  { background: linear-gradient(145deg, #a8edbe 0%, #3ed47a 100%); }
-.stat-card.transit    { background: linear-gradient(145deg, #7de8c4 0%, #3ecfa0 50%, #6fb3e8 100%); }
+.stat-card.delivered  { background: linear-gradient(145deg, #b5d9a6 0%, #4a8a4a 100%); }
+.stat-card.transit    { background: linear-gradient(145deg, #a3d8c6 0%, #5aa493 60%, #7fa4bd 100%); }
+.stat-card.pending    { background: linear-gradient(145deg, #f0e2bb 0%, #dcae55 100%); }
 .stat-card.new-orders { background: linear-gradient(145deg, #80caff 0%, #9b7fe8 50%, #c86fe0 100%); }
-.stat-card.cancelled  { background: linear-gradient(145deg, #b48fec 0%, #8e3fda 50%, #6015c0 100%); }
+.stat-card.cancelled  { background: linear-gradient(145deg, #e0b3a6 0%, #b2685c 100%); }
 
 .stat-card::after {
   content: '';

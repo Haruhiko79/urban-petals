@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
   IonAvatar,
@@ -15,7 +15,11 @@ import {
   IonTitle,
 } from '@ionic/angular';
 import { addIcons } from 'ionicons';
-import { bagHandleOutline, closeOutline, homeOutline, leafOutline, logInOutline, personOutline } from 'ionicons/icons';
+import {
+  bagHandleOutline, callOutline, closeOutline, codeSlashOutline, homeOutline, informationCircleOutline,
+  leafOutline, logInOutline, personOutline, peopleOutline, pricetagsOutline, receiptOutline,
+  speedometerOutline, timeOutline,
+} from 'ionicons/icons';
 import { UserProfileService } from './services/user-profile.service';
 
 @Component({
@@ -40,8 +44,16 @@ import { UserProfileService } from './services/user-profile.service';
 })
 export class SideMenuComponent {
   readonly profile = inject(UserProfileService).profile;
+  readonly isAdmin = computed(() => {
+    const role = this.profile()?.role;
+    return role === 'admin' || role === 'super_admin';
+  });
 
   constructor() {
-    addIcons({ bagHandleOutline, closeOutline, homeOutline, leafOutline, logInOutline, personOutline });
+    addIcons({
+      bagHandleOutline, callOutline, closeOutline, codeSlashOutline, homeOutline, informationCircleOutline,
+      leafOutline, logInOutline, personOutline, peopleOutline, pricetagsOutline, receiptOutline,
+      speedometerOutline, timeOutline,
+    });
   }
 }

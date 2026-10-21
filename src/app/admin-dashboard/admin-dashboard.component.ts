@@ -10,7 +10,7 @@ import { SupabaseService } from '../services/supabase.service';
   standalone: true,
   imports: [CommonModule, SiteHeaderComponent, IonButton, IonContent, IonHeader, IonTitle, IonToolbar, RouterLink],
   templateUrl: './admin-dashboard.component.html',
-  styleUrls: ['./dashboard.css']
+  styleUrls: ['./dashboard.css', '../admin-shared.css']
 })
 export class AdminDashboardComponent implements OnInit {
   private readonly supabase = inject(SupabaseService);
@@ -32,7 +32,11 @@ export class AdminDashboardComponent implements OnInit {
         this.transit.set(arr.filter((o: any) => o.status === 'in-transit').length);
         this.pending.set(arr.filter((o: any) => o.status === 'pending').length);
         this.cancelled.set(arr.filter((o: any) => o.status === 'cancelled' || o.status === 'rejected').length);
-        this.revenue.set(arr.reduce((sum: number, o: any) => sum + Number(o.total_amount || 0), 0));
+        this.revenue.set(
+          arr
+            .filter((o: any) => o.status === 'delivered')
+            .reduce((sum: number, o: any) => sum + Number(o.total_amount || 0), 0)
+        );
       }
     } catch (e) {}
   }

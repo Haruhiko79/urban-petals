@@ -24,7 +24,15 @@ export interface Order {
   createdAt: string;
   address: string;
   payment: string;
+  paymentReference?: string;
+  paymentStatus?: string;
   items: { name: string; qty: number; price: number }[];
+}
+
+export interface GcashCheckout {
+  checkoutUrl: string | null;
+  sourceId: string | null;
+  status: string;
 }
 
 interface CartLine {
@@ -175,7 +183,9 @@ export class ShopService {
 
   async placeOrder(
     details: { name: string; phone: string; address: string },
-    userId: string | number
+    userId: string | number,
+    payment: string = 'Cash on Delivery',
+    paymentReference?: string
   ): Promise<Order> {
     if (!this.canCheckout()) {
       throw new Error('Refresh your bag and check available quantities before ordering.');
@@ -193,7 +203,8 @@ export class ShopService {
           customer_name: details.name,
           contact_number: details.phone,
           address: details.address,
-          payment_method: 'Cash on Delivery',
+          payment_method: payment,
+          ...(paymentReference ? { payment_reference: paymentReference } : {}),
           status: 'pending',
           total_amount: totalAmount,
         })
@@ -225,6 +236,8 @@ export class ShopService {
         createdAt: orderData.created_at,
         address: orderData.address,
         payment: orderData.payment_method,
+        paymentReference: orderData.payment_reference || undefined,
+        paymentStatus: orderData.payment_status || undefined,
         items: this.cart().map(item => ({ name: item.name, qty: item.qty, price: item.price })),
       };
 
@@ -245,7 +258,8 @@ export class ShopService {
         ...details,
         items,
         currency: 'PHP',
-        payment: 'Cash on Delivery',
+        payment,
+        ...(paymentReference ? { paymentReference } : {}),
         requestKey: this.attempt!.key,
       });
       if (
@@ -267,6 +281,26 @@ export class ShopService {
       }
       return order;
     }
+  }
+
+  async createGcashPayment(orderCode: string): Promise<GcashCheckout> {
+    if (!this.supabase.isConfigured) throw new Error('GCash payment needs the online store backend.');
+    const { data, error } = await this.supabase.client.functions
+      .invoke<GcashCheckout>('create-gcash-payment', { body: { orderCode: orderCode } })
+      .then(result => ({ data: result.data as GcashCheckout | null, error: result.error }));
+    if (error) throw new Error(error.message || 'Could not start the GCash payment.');
+    if (!data || (typeof data.checkoutUrl !== 'string' && data.checkoutUrl !== null)) throw new Error('Unexpected response from the payment gateway.');
+    return data;
+  }
+
+  async checkGcashPayment(orderCode: string): Promise<{ status: string; paymentStatus: string }> {
+    if (!this.supabase.isConfigured) throw new Error('GCash payments need the online store backend.');
+    const { data, error } = await this.supabase.client.functions
+      .invoke<{ status: string; paymentStatus: string }>('check-payment', { body: { orderCode: orderCode } })
+      .then(result => ({ data: result.data as { status: string; paymentStatus: string } | null, error: result.error }));
+    if (error) throw new Error(error.message || 'Could not check the payment status.');
+    if (!data || typeof data.status !== 'string') throw new Error('Unexpected response from the payment gateway.');
+    return data;
   }
 
   private restoreAttempt(): { fingerprint: string; key: string } | null {

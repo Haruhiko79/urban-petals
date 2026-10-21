@@ -1,1 +1,35 @@
-<app-site-header></app-site-header><ion-header class="app-header"><ion-toolbar><ion-title>Urban Petals Admin</ion-title><ion-button slot="end" fill="clear" routerLink="/tabs/tab1">Storefront</ion-button></ion-toolbar></ion-header><ion-content><main class="admin-page"><nav><ion-button fill="outline" routerLink="/admin/dashboard">Dashboard</ion-button><ion-button fill="outline" routerLink="/admin/orders">Orders</ion-button><ion-button fill="solid" routerLink="/admin/products">Products</ion-button><ion-button fill="outline" routerLink="/admin/accounts">Accounts</ion-button></nav><p class="eyebrow">ADMINISTRATION</p><h1>Products</h1><div class="table-wrapper"><table class="products-table"><thead><tr><th>Item Code</th><th>Name</th><th>Category</th><th>Quantity</th><th>Price</th></tr></thead><tbody><tr *ngFor="let p of products()"><td>{{ p.item_code }}</td><td>{{ p.name }}</td><td>{{ p.category }}</td><td>{{ p.quantity }}</td><td>PHP {{ p.price | number:"1.2-2" }}</td></tr></tbody></table></div></main></ion-content>
+<app-site-header></app-site-header><ion-header class="app-header"><ion-toolbar><ion-title>Urban Petals Admin</ion-title><ion-button slot="end" fill="clear" routerLink="/tabs/tab1">Storefront</ion-button></ion-toolbar></ion-header><ion-content><main class="admin-page"><nav><ion-button fill="outline" routerLink="/admin/dashboard">Dashboard</ion-button><ion-button fill="outline" routerLink="/admin/orders">Orders</ion-button><ion-button fill="solid" routerLink="/admin/products">Products</ion-button><ion-button fill="outline" routerLink="/admin/accounts">Accounts</ion-button></nav><p class="eyebrow">ADMINISTRATION</p><h1>Products</h1>
+@if (error) { <p class="error-notice" role="alert">{{ error }}</p> }
+@if (message) { <p class="notice" role="status">{{ message }}</p> }
+<div class="products-toolbar">
+  <ion-input [(ngModel)]="search" (ngModelChange)="search.set($event)" label="Search products" labelPlacement="stacked" placeholder="Name, code or category…"></ion-input>
+  <ion-button fill="outline" (click)="load()" [disabled]="loading">Refresh</ion-button>
+  <ion-button fill="solid" (click)="openEditor(null)" [disabled]="editingId !== null">Add product</ion-button>
+</div>
+@if (editingId !== null) {
+  <section class="product-editor" aria-label="Product editor">
+    <h2>{{ editingId === 'new' ? 'New product' : 'Edit product' }}</h2>
+    <fieldset [disabled]="busy">
+      <ion-input [(ngModel)]="draft.name" name="draftName" label="Product name" labelPlacement="stacked" maxlength="200" required></ion-input>
+      <div class="editor-row">
+        <ion-input class="stack" [(ngModel)]="draft.group" name="draftGroup" label="Collection" labelPlacement="stacked" maxlength="40"></ion-input>
+        <ion-input class="stack" [(ngModel)]="draft.category" name="draftCategory" label="Category" labelPlacement="stacked" maxlength="60" required></ion-input>
+      </div>
+      <div class="editor-row">
+        <ion-input class="stack" [(ngModel)]="draft.price" name="draftPrice" label="Price (PHP)" labelPlacement="stacked" type="number" min="0" step="0.01"></ion-input>
+        <ion-input class="stack" [(ngModel)]="draft.stock" name="draftStock" label="Stock" labelPlacement="stacked" type="number" min="0"></ion-input>
+        <ion-input class="stack" [(ngModel)]="draft.badge" name="draftBadge" label="Badge (optional)" labelPlacement="stacked" maxlength="30" placeholder="e.g. New"></ion-input>
+      </div>
+      <ion-input [(ngModel)]="draft.image" name="draftImage" label="Image URL (optional)" labelPlacement="stacked" placeholder="https://…"></ion-input>
+      <p class="editor-hint">Tip: upload the photo to Google Drive, share it as “Anyone with the link”, and paste the link here — it is converted automatically.</p>
+      <ion-input [(ngModel)]="draft.description" name="draftDescription" label="Description" labelPlacement="stacked"></ion-input>
+      <ion-input [(ngModel)]="draft.item_code" name="draftItemCode" label="Item code (optional, auto-generated when blank)" labelPlacement="stacked" maxlength="20"></ion-input>
+      @if (!formValid) { <p class="editor-hint">Fill in a name, category, a price above 0 and a stock of 0 or more to save.</p> }
+      <div class="editor-actions">
+        <ion-button type="button" (click)="save()" [disabled]="busy || !formValid">{{ busy ? 'Saving…' : 'Save product' }}</ion-button>
+        <ion-button type="button" fill="outline" (click)="closeEditor()" [disabled]="busy">Cancel</ion-button>
+      </div>
+    </fieldset>
+  </section>
+}
+<div class="table-wrapper"><table class="products-table"><thead><tr><th></th><th>Item Code</th><th>Name</th><th>Category</th><th>Stock</th><th>Price</th><th>Actions</th></tr></thead><tbody>@for (p of visibleProducts(); track $index) {<tr [class.inactive-row]="!p.is_active"><td class="thumb-cell"><img [src]="imageFor(p)" [alt]="p.name" /></td><td>{{ p.item_code }}</td><td>{{ p.name }} @if (!p.is_active) { <span class="badge-revoked">inactive</span> }</td><td>{{ p.category }}</td><td>{{ p.stock ?? p.quantity }}</td><td>PHP {{ p.price | number:"1.2-2" }}</td><td class="actions-cell"><ion-button size="small" fill="outline" [disabled]="busy || editingId !== null" (click)="openEditor(p)">Edit</ion-button><ion-button size="small" [fill]="p.is_active ? 'outline' : 'solid'" [disabled]="busy || editingId !== null" (click)="toggleActive(p)">{{ p.is_active ? 'Deactivate' : 'Activate' }}</ion-button></td></tr>} @empty {<tr><td colspan="7">@if (search()) { No products match “{{ search() }}”. } @else { No products yet — add the first one. }</td></tr>}</tbody></table></div></main></ion-content>

@@ -1,0 +1,141 @@
+/* ──────────────────────────────────────────
+   ADMIN SHARED LAYOUT — Urban Petals Admin
+   Beige editorial look, responsive on mobile
+────────────────────────────────────────── */
+
+.admin-page {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 26px 22px 84px;
+  color: #24331f;
+}
+
+.admin-page nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 28px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, .78);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+
+.admin-page nav ion-button { --border-radius: 999px; min-height: 40px; }
+
+.admin-page .eyebrow {
+  color: #6e8b62;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+
+.admin-page h1 {
+  font: 700 clamp(2.2rem, 6vw, 4rem)/.98 'Playfair Display', Georgia, serif;
+  color: #24331f;
+  margin: 8px 0 22px;
+}
+
+.admin-page > p:not(.eyebrow):not(.notice):not(.error-notice) { color: #5d6a52; }
+
+/* ── Toolbars (search + actions) ── */
+.orders-toolbar,
+.products-toolbar,
+.accounts-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+  background: rgba(255, 255, 255, .8);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 14px 16px;
+  margin: 0 0 18px;
+}
+
+.orders-toolbar ion-input,
+.products-toolbar ion-input,
+.accounts-toolbar ion-input {
+  flex: 1 1 260px;
+  max-width: 430px;
+}
+
+/* ── Table panels ── */
+.table-wrapper {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.orders-table, .products-table, .accounts-table { min-width: 900px; }
+
+/* ── Revenue panel ── */
+.admin-page .revenue {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: linear-gradient(120deg, #2e5f2e 0%, #4a8a4a 85%, #5a9550 100%);
+  color: #f5f1e6;
+  border-radius: 18px;
+  padding: 22px 26px;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-page .revenue::after {
+  content: '';
+  position: absolute;
+  right: -34px;
+  bottom: -34px;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .12);
+}
+
+.admin-page .revenue p {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(245, 241, 230, .82);
+}
+
+.admin-page .revenue h2 {
+  margin: 4px 0 0;
+  font: 700 clamp(1.6rem, 4vw, 2.2rem) 'Playfair Display', Georgia, serif;
+}
+
+/* ── Product editor ── */
+.product-editor ion-input { margin-bottom: 12px; }
+.product-editor .editor-row { display: flex; gap: 12px; }
+.product-editor .editor-row .stack { flex: 1; }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .admin-page { padding: 22px 16px 72px; }
+  .admin-page nav { padding: 10px 12px; }
+}
+
+@media (max-width: 720px) {
+  .product-editor .editor-row { flex-direction: column; gap: 0; }
+  .product-editor .editor-row .stack { width: 100%; }
+  .admin-page .revenue { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 560px) {
+  .orders-toolbar ion-input,
+  .products-toolbar ion-input,
+  .accounts-toolbar ion-input { max-width: none; width: 100%; flex-basis: 100%; }
+  .orders-toolbar, .products-toolbar, .accounts-toolbar { flex-direction: column; align-items: stretch; }
+}

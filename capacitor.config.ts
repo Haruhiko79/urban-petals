@@ -7,9 +7,9 @@ const config: CapacitorConfig = {
   plugins: {
     SystemBars: { insetsHandling: 'css', initialViewportFitValueHint: 'cover', style: 'LIGHT' },
     SplashScreen: {
-      launchShowDuration: 3000,
-      launchAutoHide: false,
-      backgroundColor: '#faf9f5',
+      launchShowDuration: 0,
+      launchAutoHide: true,
+      backgroundColor: '#e7e0d1',
       showSpinner: false
     }
   }

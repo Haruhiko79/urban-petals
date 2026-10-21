@@ -1,1 +1,10 @@
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android"><item><shape><solid android:color="#faf9f5"/></shape></item><item android:drawable="@drawable/urban_petals_flower" android:gravity="center" android:width="108dp" android:height="108dp"/></layer-list>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <item><shape><solid android:color="#e7e0d1"/></shape></item>
+  <item android:gravity="center">
+    <shape android:shape="oval">
+      <solid android:color="#f3eee3"/>
+      <size android:width="220dp" android:height="220dp"/>
+    </shape>
+  </item>
+  <item android:drawable="@drawable/urban_petals_flower" android:gravity="center" android:width="112dp" android:height="112dp"/>
+</layer-list>

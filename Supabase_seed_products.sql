@@ -1,7 +1,7 @@
 -- ==============================================================================
 -- Urban Petals — Product Catalog Seed
 -- Run this in the Supabase SQL Editor (after Supabase_sql.sql schema setup).
--- Idempotent: re-running updates existing rows by item_code.
+-- Idempotent: re-running updates existing rows by id.
 -- ==============================================================================
 
 INSERT INTO public.products (id, item_code, name, "group", category, quantity, stock, price, image, description, badge, is_active)
@@ -46,7 +46,10 @@ VALUES
   (405, '#B005', 'Plant Booster', 'Fertilizers', 'Liquid', 22, 22, 450.00,  'https://www.gardeningera.com/wp-content/uploads/2024/05/Gardening-Era-1.png', 'Energizing plant booster with essential micronutrients for stronger roots and blooms.', NULL, true),
   (406, '#B006', 'Rock Phosphate', 'Fertilizers', 'Soil Enhancers', 14, 14, 1200.00, 'https://5.imimg.com/data5/SELLER/Default/2023/4/300299368/TE/WR/AX/186880872/download-1-jpeg-500x500.jpeg', 'Natural rock phosphate powder, excellent long-term phosphorus source.', NULL, true)
 
-ON CONFLICT (item_code) DO UPDATE SET
+-- Upsert by primary key: the rows already present in the live table use
+-- different item codes (ITEM-PLANT-001, ...), so conflicts resolve on (id)
+-- and existing item_code values are preserved on update.
+ON CONFLICT (id) DO UPDATE SET
   name        = EXCLUDED.name,
   "group"     = EXCLUDED."group",
   category    = EXCLUDED.category,

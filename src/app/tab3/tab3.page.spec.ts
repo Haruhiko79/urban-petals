@@ -26,4 +26,23 @@ describe('Checkout', () => {
     expect(component.order).toBeNull(); expect(component.address).toBe('12 Garden Street');
     expect(component.error).toBe('Insufficient stock'); expect(component.busy).toBe(false);
   });
+  it('places GCash orders straight from the QR scan without a reference number', async () => {
+    const component = TestBed.createComponent(Tab3Page).componentInstance;
+    component.customerName = 'Buyer'; component.phone = '09123456789'; component.address = '12 Garden Street';
+    const placeOrder = vi.spyOn(component.shop, 'placeOrder').mockResolvedValue(null as never);
+    component.payment = 'GCash';
+    await component.checkout();
+    expect(placeOrder).toHaveBeenCalledWith({ name: 'Buyer', phone: '09123456789', address: '12 Garden Street' }, 1, 'GCash');
+  });
+  it('generates a QR code when GCash is selected', async () => {
+    const component = TestBed.createComponent(Tab3Page).componentInstance;
+    component.onPaymentChange('GCash');
+    await new Promise(resolve => setTimeout(resolve, 50));
+    expect(component.qrCode).toMatch(/^data:image\/svg\+xml;base64|data:image\/svg\+xml;charset=utf-8,/);
+  });
+  it('does not generate a QR code for cash on delivery', () => {
+    const component = TestBed.createComponent(Tab3Page).componentInstance;
+    component.onPaymentChange('Cash on Delivery');
+    expect(component.qrCode).toBe('');
+  });
 });

@@ -58,6 +58,8 @@ export class OrdersPageComponent {
           createdAt: row.created_at,
           address: row.address,
           payment: row.payment_method,
+          paymentReference: row.payment_reference || undefined,
+          paymentStatus: row.payment_status || undefined,
           items: (row.order_items || []).map((item: any) => ({
             name: item.product_name,
             qty: item.quantity,

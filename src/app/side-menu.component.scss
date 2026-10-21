@@ -37,6 +37,21 @@ ion-list {
   padding-top: 0.75rem;
 }
 
+.menu-divider {
+  height: 1px;
+  margin: 0.75rem 1rem 0.5rem;
+  background: rgba(var(--ion-color-dark-rgb, 32, 45, 32), 0.12);
+}
+
+.menu-caption {
+  margin: 0.4rem 1rem 0;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ion-color-medium);
+}
+
 ion-item {
   --padding-start: 1rem;
   --inner-padding-end: 1rem;

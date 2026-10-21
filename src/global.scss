@@ -38,22 +38,29 @@
 	--green-dark: #2e5f2e;
 	--green-mid: #4a8a4a;
 	--green-light: #8fbc6a;
-	--green-pale: #e8f5e2;
-	--cream: #faf9f5;
-	--text: #1a2e1a;
-	--text-muted: #5a7a5a;
-	--border: #d0e8c8;
-	--shadow: 0 4px 24px rgba(46, 95, 46, .1);
+	--green-pale: #eae9d9;
+	--cream: #e7e0d1;
+	--text: #24331f;
+	--text-muted: #6b7a5e;
+	--border: #d5cbb8;
+	--border-soft: #e0d8c7;
+	--shadow: 0 4px 24px rgba(46, 62, 35, .1);
 	--ion-font-family: 'Lato', 'Trebuchet MS', sans-serif;
 	--ion-background-color: var(--cream);
 	--ion-text-color: var(--text);
 	--ion-color-primary: var(--green-dark);
+	--ion-color-light: #f3eee3;
+	--ion-color-light-rgb: 243, 238, 227;
+	--ion-color-light-contrast: var(--text);
+	--ion-color-light-contrast-rgb: 36, 51, 31;
+	--ion-color-light-shade: #ece6da;
+	--ion-color-light-tint: #f4f0e6;
 }
 
 html, body { background: var(--cream); color: var(--text); font-family: 'Lato', 'Trebuchet MS', sans-serif; }
 body { margin: 0; }
 ion-content { --background: var(--cream); }
-ion-toolbar { --background: rgba(250, 249, 245, .96); --color: var(--green-dark); --border-color: var(--border); }
+ion-toolbar { --background: rgba(231, 224, 209, .96); --color: var(--green-dark); --border-color: var(--border-soft); }
 ion-button { --border-radius: 8px; --box-shadow: none; text-transform: none; font-weight: 700; }
 .app-header { position: sticky; top: 0; z-index: 10; box-shadow: var(--shadow); }
 .app-header ion-title { font-family: 'Playfair Display', Georgia, serif; font-weight: 700; }

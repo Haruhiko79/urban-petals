@@ -6,12 +6,35 @@
     <section class="confirmation" role="status">
       <p class="eyebrow">ORDER RECEIVED</p><h1>Good things<br />are growing.</h1>
       <p>Order <strong>{{ receipt.id }}</strong> is pending confirmation.</p>
-      <p>Pay {{ receipt.total | currency:'PHP':'₱':'1.2-2' }} on delivery. No online payment was taken.</p>
+      @if (receipt.payment === 'Cash on Delivery') {
+        <p>Pay {{ receipt.total | currency:'PHP':'₱':'1.2-2' }} on delivery. No online payment was taken.</p>
+      } @else if (gcashState === 'paid') {
+        <p>Paid via GCash ✓ {{ receipt.total | currency:'PHP':'₱':'1.2-2' }} — this order is confirmed by the payment provider.</p>
+      } @else if (gcashState === 'creating') {
+        <p>Opening the secure GCash payment window for {{ receipt.total | currency:'PHP':'₱':'1.2-2' }}…</p>
+      } @else if (gcashState === 'verifying') {
+        <p>Checking your GCash payment…</p>
+      } @else if (gcashState === 'failed') {
+        <p class="gcash-fail">The GCash payment was not completed. You can retry any time.</p>
+      } @else if (gcashState === 'error') {
+        <p class="gcash-fail" role="alert">{{ error || 'Could not start the GCash payment.' }}</p>
+      } @else {
+        <p>A GCash payment window opened for {{ receipt.total | currency:'PHP':'₱':'1.2-2' }}. Approve it in GCash — this page updates automatically.</p>
+      }
+      @if (receipt.payment === 'GCash' && gcashState !== 'paid') {
+        <div class="gcash-actions">
+          @if (gcashCheckoutUrl || gcashState === 'checkout' || gcashState === 'verifying') { <ion-button (click)="openGcashCheckout()">Open GCash again</ion-button> }
+          <ion-button fill="outline" [disabled]="gcashBusy" (click)="gcashCheckManually()">{{ gcashBusy ? 'Checking…' : 'I already paid — check now' }}</ion-button>
+          @if (gcashState === 'failed' || gcashState === 'error') { <ion-button fill="outline" [disabled]="gcashBusy" (click)="gcashRetry()">{{ gcashBusy ? 'Please wait…' : 'Retry GCash payment' }}</ion-button> }
+        </div>
+      }
       <p>Delivery to {{ receipt.address }}</p>
       <ion-button routerLink="/orders">View my orders</ion-button>
       <ion-button fill="outline" routerLink="/tabs/tab2">Continue shopping</ion-button>
     </section>
   } @else {
+    @if (gcashState === 'verifying') { <p class="notice" role="status">Checking your GCash payment for order {{ gcashOrderCode }}…</p> }
+    @if (gcashState === 'paid') { <p class="notice">Your GCash payment was confirmed. <ion-button routerLink="/orders" fill="clear">See my orders</ion-button></p> }
     @if (shop.error()) { <div class="error-notice" role="alert">{{ shop.error() }} <ion-button fill="clear" (click)="shop.loadProducts()">Retry</ion-button></div> }
     @if (shop.loading()) { <p class="notice" role="status">Updating prices and availability…</p> }
     @if (shop.unavailableItems() && !shop.loading() && !shop.error()) {
@@ -46,11 +69,24 @@
                 <ion-input [(ngModel)]="customerName" [disabled]="busy" name="customerName" label="Recipient name" labelPlacement="stacked" autocomplete="name" maxlength="180" required></ion-input>
                 <ion-input [(ngModel)]="phone" [disabled]="busy" name="phone" label="Phone number" labelPlacement="stacked" type="tel" autocomplete="tel" pattern="[+0-9 ()-]{7,40}" maxlength="40" required></ion-input>
                 <ion-input [(ngModel)]="address" [disabled]="busy" name="address" label="Complete delivery address" labelPlacement="stacked" autocomplete="street-address" minlength="10" maxlength="1000" placeholder="House, street, barangay, city, province, ZIP" required></ion-input>
+                <h3>Payment method</h3>
+                <ion-radio-group [(ngModel)]="payment" (ngModelChange)="onPaymentChange($event)" name="payment" required>
+                  @for (option of paymentOptions; track option) {
+                    <ion-item lines="none">
+                      <ion-radio [value]="option" justify="space-between">{{ option }}</ion-radio>
+                    </ion-item>
+                  }
+                </ion-radio-group>
+                @if (payment === 'GCash') {
+                  <section class="gcash-panel">
+                    <p class="gcash-title">GCash · pay after ordering</p>
+                    <p class="gcash-hint">Placing the order opens a secure GCash payment window — open GCash, approve the amount, and the order confirms itself automatically.</p>
+                  </section>
+                } @else { <p class="notice">Cash on delivery · Pay when your order arrives.</p> }
               </fieldset>
-              <p class="notice">Cash on delivery · Pay when your order arrives.</p>
               <div class="total"><span>Delivery</span><strong>Included</strong></div>
               <div class="total"><span>Total</span><strong>{{ shop.total() | currency:'PHP':'₱':'1.2-2' }}</strong></div>
-              <ion-button type="submit" expand="block" [disabled]="checkoutForm.invalid || busy || !shop.canCheckout()">{{ busy ? 'Placing order…' : 'Place order · Pay on delivery' }}</ion-button>
+              <ion-button type="submit" expand="block" [disabled]="checkoutForm.invalid || busy || !shop.canCheckout()">{{ busy ? (payment === 'GCash' ? 'Placing order & opening GCash…' : 'Placing order…') : (payment === 'GCash' ? 'Place order · then pay with GCash' : 'Place order · ' + payment) }}</ion-button>
               <small>Your order will be saved as pending for the store to confirm.</small>
             </form>
           } @else {

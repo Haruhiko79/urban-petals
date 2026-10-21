@@ -3,8 +3,10 @@
   <section class="shop-intro"><p class="eyebrow">THE COLLECTION</p><h1>Everything for<br /><em>your kind of green.</em></h1><p>Plants, blooms, tools and considered pieces for everyday growing.</p></section>
 
   @if (shop.preview) { <p class="notice catalog-preview-note">Online ordering is not connected yet. Prices and availability are not live.</p> }
-  <div class="filters"><ion-input [(ngModel)]="searchTerm" label="Search" labelPlacement="stacked" placeholder="Find something green"></ion-input><ion-select [(ngModel)]="selectedCategory" label="Category" labelPlacement="stacked">@for (category of categories; track category) { <ion-select-option [value]="category">{{ category }}</ion-select-option> }</ion-select></div>
-  <ion-segment [scrollable]="true" class="category-switcher" [(ngModel)]="selectedCategory">@for (category of categories; track category) {<ion-segment-button [value]="category">{{ category }}</ion-segment-button>}</ion-segment>
+  <section class="search-panel">
+    <div class="filters"><ion-input [(ngModel)]="searchTerm" label="Search" labelPlacement="stacked" placeholder="Find something green"></ion-input><ion-select [(ngModel)]="selectedCategory" label="Category" labelPlacement="stacked">@for (category of categories; track category) { <ion-select-option [value]="category">{{ category }}</ion-select-option> }</ion-select></div>
+    <ion-segment [scrollable]="true" class="category-switcher" [(ngModel)]="selectedCategory">@for (category of categories; track category) {<ion-segment-button [value]="category">{{ category }}</ion-segment-button>}</ion-segment>
+  </section>
   @if (shop.loading()) { <div class="catalog-skeleton" role="status" aria-label="Loading products"><div></div><div></div><div></div><div></div></div> }
   @if (shop.error()) { <div class="error-notice" role="alert">{{ shop.error() }} <ion-button fill="clear" (click)="shop.loadProducts()">Retry</ion-button></div> }
   <p class="bag-feedback" role="status">{{ shop.feedback() }}</p>

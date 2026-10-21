@@ -26,43 +26,122 @@
     </section>
 
     <ion-list lines="none">
-      <ion-menu-toggle auto-hide="true">
-        <ion-item button detail="false" routerLink="/tabs/tab1">
-          <ion-icon slot="start" name="home-outline" aria-hidden="true"></ion-icon>
-          <ion-label>Home</ion-label>
-        </ion-item>
-      </ion-menu-toggle>
-      <ion-menu-toggle auto-hide="true">
-        <ion-item button detail="false" routerLink="/tabs/tab2">
-          <ion-icon slot="start" name="leaf-outline" aria-hidden="true"></ion-icon>
-          <ion-label>Shop</ion-label>
-        </ion-item>
-      </ion-menu-toggle>
-      <ion-menu-toggle auto-hide="true">
-        <ion-item button detail="false" routerLink="/tabs/tab3">
-          <ion-icon slot="start" name="bag-handle-outline" aria-hidden="true"></ion-icon>
-          <ion-label>Bag</ion-label>
-        </ion-item>
-      </ion-menu-toggle>
-      <ion-menu-toggle auto-hide="true">
-        <ion-item button detail="false" routerLink="/tabs/account">
-          <ion-icon slot="start" name="person-outline" aria-hidden="true"></ion-icon>
-          <ion-label>Account</ion-label>
-        </ion-item>
-      </ion-menu-toggle>
-      <ion-menu-toggle auto-hide="true">
-        <ion-item button detail="false" routerLink="/orders">
-          <ion-icon slot="start" name="bag-handle-outline" aria-hidden="true"></ion-icon>
-          <ion-label>My orders</ion-label>
-        </ion-item>
-      </ion-menu-toggle>
-      @if (!profile()) {
+      @if (isAdmin()) {
         <ion-menu-toggle auto-hide="true">
-          <ion-item button detail="false" routerLink="/signin">
-            <ion-icon slot="start" name="log-in-outline" aria-hidden="true"></ion-icon>
-            <ion-label>Sign in</ion-label>
+          <ion-item button detail="false" routerLink="/admin/dashboard">
+            <ion-icon slot="start" name="speedometer-outline" aria-hidden="true"></ion-icon>
+            <ion-label>Dashboard</ion-label>
           </ion-item>
         </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="true">
+          <ion-item button detail="false" routerLink="/admin/orders">
+            <ion-icon slot="start" name="receipt-outline" aria-hidden="true"></ion-icon>
+            <ion-label>Orders</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="true">
+          <ion-item button detail="false" routerLink="/admin/products">
+            <ion-icon slot="start" name="pricetags-outline" aria-hidden="true"></ion-icon>
+            <ion-label>Products</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="true">
+          <ion-item button detail="false" routerLink="/admin/accounts">
+            <ion-icon slot="start" name="people-outline" aria-hidden="true"></ion-icon>
+            <ion-label>Accounts</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+
+        <div class="menu-divider" role="presentation"></div>
+        <p class="menu-caption" role="presentation">STOREFRONT</p>
+
+        <ion-menu-toggle auto-hide="true">
+          <ion-item button detail="false" routerLink="/tabs/tab1">
+            <ion-icon slot="start" name="home-outline" aria-hidden="true"></ion-icon>
+            <ion-label>Back to store</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="true">
+          <ion-item button detail="false" routerLink="/tabs/account">
+            <ion-icon slot="start" name="person-outline" aria-hidden="true"></ion-icon>
+            <ion-label>Account</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      } @else {
+        <ion-menu-toggle auto-hide="true">
+          <ion-item button detail="false" routerLink="/tabs/tab1">
+            <ion-icon slot="start" name="home-outline" aria-hidden="true"></ion-icon>
+            <ion-label>Home</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="true">
+          <ion-item button detail="false" routerLink="/tabs/tab2">
+            <ion-icon slot="start" name="leaf-outline" aria-hidden="true"></ion-icon>
+            <ion-label>Shop</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="true">
+          <ion-item button detail="false" routerLink="/tabs/tab3">
+            <ion-icon slot="start" name="bag-handle-outline" aria-hidden="true"></ion-icon>
+            <ion-label>Cart</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="true">
+          <ion-item button detail="false" routerLink="/orders">
+            <ion-icon slot="start" name="receipt-outline" aria-hidden="true"></ion-icon>
+            <ion-label>My orders</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="true">
+          <ion-item button detail="false" routerLink="/tabs/account">
+            <ion-icon slot="start" name="person-outline" aria-hidden="true"></ion-icon>
+            <ion-label>Account</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+
+        <div class="menu-divider" role="presentation"></div>
+
+        <ion-menu-toggle auto-hide="true">
+          <ion-item button detail="false" routerLink="/about">
+            <ion-icon slot="start" name="time-outline" aria-hidden="true"></ion-icon>
+            <ion-label>Company history</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="true">
+          <ion-item button detail="false" routerLink="/about-products">
+            <ion-icon slot="start" name="pricetags-outline" aria-hidden="true"></ion-icon>
+            <ion-label>Our products</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="true">
+          <ion-item button detail="false" routerLink="/about-app">
+            <ion-icon slot="start" name="information-circle-outline" aria-hidden="true"></ion-icon>
+            <ion-label>About the app</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="true">
+          <ion-item button detail="false" routerLink="/developers">
+            <ion-icon slot="start" name="code-slash-outline" aria-hidden="true"></ion-icon>
+            <ion-label>Developers</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="true">
+          <ion-item button detail="false" routerLink="/contact">
+            <ion-icon slot="start" name="call-outline" aria-hidden="true"></ion-icon>
+            <ion-label>Contact us</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+
+        <div class="menu-divider" role="presentation"></div>
+
+        @if (!profile()) {
+          <ion-menu-toggle auto-hide="true">
+            <ion-item button detail="false" routerLink="/signin">
+              <ion-icon slot="start" name="log-in-outline" aria-hidden="true"></ion-icon>
+              <ion-label>Sign in</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        }
       }
     </ion-list>
   </ion-content>

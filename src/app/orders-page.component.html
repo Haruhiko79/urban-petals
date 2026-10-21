@@ -16,7 +16,7 @@
             }
           </ul>
           <div class="order-total"><span>Order total</span><strong>{{ order.total | currency:'PHP':'₱':'1.2-2' }}</strong></div>
-          <details><summary>Delivery & payment</summary><p>{{ order.address }}</p><p>{{ order.payment }}</p></details>
+          <details><summary>Delivery & payment</summary><p>{{ order.address }}</p><p>{{ order.payment }}@if (order.paymentStatus === 'paid') { <strong> · paid ✓</strong> } @else if (order.paymentStatus === 'gcash-pending') { <strong> · awaiting GCash payment</strong> } @else if (order.paymentStatus === 'failed') { <strong> · GCash payment failed</strong> }</p>@if (order.paymentReference) { <p>GCash reference: <strong>{{ order.paymentReference }}</strong> — pending verification.</p> }</details>
         </article>
       } @empty { @if (!loading() && !error()) { <section class="empty-orders"><h2>Your first order starts here.</h2><p>Choose something green for your space. Your confirmed orders will appear here.</p><ion-button routerLink="/tabs/tab2">Explore the collection</ion-button></section> } }
     } @else if (!loading()) {

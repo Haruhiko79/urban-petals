@@ -1,5 +1,81 @@
-.launch-screen { position: fixed; inset: 0; z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #faf9f5; color: #2e5f2e; }
-.launch-screen img { width: 96px; height: 96px; border-radius: 24px; }
-.launch-screen h1 { font: 700 36px Georgia, serif; margin: 24px 0 4px; }
-.launch-screen p { font-size: 16px; }
-.launch-screen span { margin-top: 32px; font-size: 12px; }
+﻿ion-app { background: #e7e0d1; }
+
+.launch-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #e7e0d1;
+  color: #2e5f2e;
+  text-align: center;
+  animation: launch-grow .6s ease both;
+}
+
+.launch-screen img {
+  width: 96px;
+  height: 96px;
+  border-radius: 24px;
+  padding: 14px;
+  background: #ece6d8;
+  box-shadow: 0 0 0 12px rgba(231, 239, 227, .55);
+  animation: launch-bloom 1.6s ease-in-out infinite alternate;
+}
+
+.launch-screen h1 {
+  font: 700 34px Georgia, serif;
+  margin: 28px 0 6px;
+  letter-spacing: .01em;
+}
+
+.launch-screen p {
+  margin: 0;
+  font-size: 15px;
+  color: #6e8b62;
+}
+
+.launch-screen span {
+  margin-top: 36px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: #ece6d8;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #6e8b62;
+  animation: launch-fade 1.4s ease-in-out infinite alternate;
+}
+
+.launch-screen::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -18%;
+  width: 130vw;
+  height: 70vh;
+  transform: translateX(-50%);
+  border-radius: 0 0 50% 50%;
+  background: linear-gradient(180deg, #2e5f2e 0%, rgba(46, 95, 46, .12) 68%, transparent 100%);
+  opacity: .08;
+}
+
+.launch-screen > * { position: relative; }
+
+@keyframes launch-bloom {
+  from { transform: scale(.96); }
+  to { transform: scale(1.04); }
+}
+
+@keyframes launch-fade {
+  from { opacity: .45; }
+  to { opacity: 1; }
+}
+
+@keyframes launch-grow {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+

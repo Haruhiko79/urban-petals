@@ -16,6 +16,9 @@ export class UserProfileService {
   private readonly supabase = inject(SupabaseService);
   private readonly api = inject(ApiService);
   private readonly profileState = signal<UserProfile | null>(null);
+  private readonly profileErrorState = signal('');
+
+  readonly profileError = computed(() => (this.supabase.isConfigured ? this.profileErrorState() : ''));
 
   readonly profile = computed(() => (this.supabase.isConfigured ? this.profileState() : this.api.token() ? this.profileState() : null));
 
@@ -57,7 +60,7 @@ export class UserProfileService {
   async authenticate(
     mode: 'register' | 'login',
     details: { name?: string; phone?: string; email: string; password: string }
-  ): Promise<void> {
+  ): Promise<'signed-in' | 'pending-verification'> {
     if (this.supabase.isConfigured) {
       if (mode === 'register') {
         const name = details.name?.trim() || '';
@@ -83,9 +86,9 @@ export class UserProfileService {
         if (data.session) {
           this.api.setToken(data.session.access_token);
           await this.fetchProfile(data.user.id, data.user.email ?? '');
-        } else {
-          throw new Error('Registration successful! Please check your email to confirm your account before logging in.');
+          return 'signed-in';
         }
+        return 'pending-verification';
       } else {
         const { data, error } = await this.supabase.client.auth.signInWithPassword({
           email: details.email.trim(),
@@ -97,12 +100,20 @@ export class UserProfileService {
 
         this.api.setToken(data.session.access_token);
         await this.fetchProfile(data.user.id, data.user.email ?? '');
+        return 'signed-in';
       }
     } else {
       const result = await this.api.request<{ user: UserProfile; token: string }>(`/auth/${mode}`, 'POST', details);
       this.api.setToken(result.token);
       this.profileState.set(result.user);
+      return 'signed-in';
     }
+  }
+
+  async resendVerification(email: string): Promise<void> {
+    if (!this.supabase.isConfigured) return;
+    const { error } = await this.supabase.client.auth.resend({ type: 'signup', email: email.trim() });
+    if (error) throw new Error(error.message);
   }
 
   async save(details: Pick<UserProfile, 'name' | 'phone' | 'imageUrl'>): Promise<void> {
@@ -115,16 +126,27 @@ export class UserProfileService {
 
       const { error } = await this.supabase.client
         .from('users')
-        .update({
-          first_name: firstName,
-          last_name: lastName,
-          phone: details.phone,
-          avatar: details.imageUrl,
-          updated_at: new Date().toISOString(),
-        })
-        .eq('id', current.id);
+        .upsert(
+          {
+            id: current.id,
+            email: current.email,
+            first_name: firstName,
+            last_name: lastName,
+            phone: details.phone,
+            avatar: details.imageUrl,
+            role: current.role ?? 'customer',
+            updated_at: new Date().toISOString(),
+          },
+          { onConflict: 'id' }
+        )
+        .select('id')
+        .maybeSingle();
 
-      if (error) throw new Error(error.message);
+      if (error) {
+        this.profileErrorState.set(`Could not save your profile: ${error.message}`);
+        throw new Error(error.message);
+      }
+      this.profileErrorState.set('');
 
       this.profileState.set({
         ...current,
@@ -158,6 +180,14 @@ export class UserProfileService {
 
       if (error) {
         console.warn('Error fetching profile from users table:', error.message);
+        this.profileErrorState.set(`Could not load your profile from the database: ${error.message}`);
+      }
+
+      if (!data && !error) {
+        console.warn('No users row found for', userId, '- profile edits may not persist. Run Supabase_profile_policies.sql (backfill + RLS) in the SQL Editor.');
+        this.profileErrorState.set('No profile record exists in the database yet. Saving your profile will create it.');
+      } else if (data && !error) {
+        this.profileErrorState.set('');
       }
 
       const fullName = data
@@ -172,7 +202,9 @@ export class UserProfileService {
         imageUrl: data?.avatar || '',
         role: data?.role || 'customer',
       });
-    } catch {
+    } catch (error) {
+      console.warn('Failed to fetch profile from users table:', error);
+      this.profileErrorState.set('Could not load your profile from the database. Your details will not persist until this is fixed.');
       this.profileState.set({
         id: userId,
         name: email,

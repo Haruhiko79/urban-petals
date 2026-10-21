@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, effect, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { IonButton, IonContent, IonInput, IonItem, IonLabel, IonList } from '@ionic/angular';
@@ -24,6 +24,17 @@ export class AccountPageComponent {
   processingPhoto = false;
   error = '';
   message = '';
+
+  constructor() {
+    effect(() => {
+      const user = this.auth.profile();
+      if (!user || this.busy || this.processingPhoto) return;
+      this.name = user.name;
+      this.phone = user.phone;
+      this.imageUrl = user.imageUrl;
+      this.changeDetector.markForCheck();
+    });
+  }
 
   async ionViewWillEnter(): Promise<void> {
     this.error = this.message = '';
