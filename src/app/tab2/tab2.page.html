@@ -1,0 +1,13 @@
+<app-site-header></app-site-header>
+
+<ion-content>
+  <section class="shop-intro"><p class="eyebrow">THE COLLECTION</p><h1>Everything for<br /><em>your kind of green.</em></h1><p>Plants, blooms, tools and considered pieces for everyday growing.</p></section>
+
+  @if (shop.preview) { <p class="notice catalog-preview-note">Online ordering is not connected yet. Prices and availability are not live.</p> }
+  <div class="filters"><ion-input [(ngModel)]="searchTerm" label="Search" labelPlacement="stacked" placeholder="Find something green"></ion-input><ion-select [(ngModel)]="selectedCategory" label="Category" labelPlacement="stacked">@for (category of categories; track category) { <ion-select-option [value]="category">{{ category }}</ion-select-option> }</ion-select></div>
+  <ion-segment [scrollable]="true" class="category-switcher" [(ngModel)]="selectedCategory">@for (category of categories; track category) {<ion-segment-button [value]="category">{{ category }}</ion-segment-button>}</ion-segment>
+  @if (shop.loading()) { <div class="catalog-skeleton" role="status" aria-label="Loading products"><div></div><div></div><div></div><div></div></div> }
+  @if (shop.error()) { <div class="error-notice" role="alert">{{ shop.error() }} <ion-button fill="clear" (click)="shop.loadProducts()">Retry</ion-button></div> }
+  <p class="bag-feedback" role="status">{{ shop.feedback() }}</p>
+  <section class="product-grid">@for (product of visibleProducts; track product.id) {<article class="product-card" role="button" tabindex="0" (click)="openDetails(product)" (keydown.enter)="openDetails(product)"><div class="product-image"><img [src]="product.image" [alt]="product.name" loading="lazy" (error)="$any($event.target).src = 'assets/icon/favicon.png'" />@if (product.badge) { <span>{{ product.badge }}</span> }</div><p class="category">{{ product.category }}</p><h2>{{ product.name }}</h2><p class="description">{{ product.description }}</p><div class="product-row"><strong>{{ product.price | currency:'PHP':'₱':'1.2-2' }}</strong><ion-button (click)="add($event, product)" [disabled]="product.stock === 0" fill="solid">{{ product.stock === 0 ? 'Sold out' : 'Add to bag' }}</ion-button></div></article>} @empty { @if (!shop.loading() && !shop.error()) { <p class="empty">No products match your selection. Try another category or search.</p> } }</section>
+</ion-content>

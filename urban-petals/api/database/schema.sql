@@ -1,0 +1,60 @@
+CREATE TABLE IF NOT EXISTS users (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) DEFAULT '',
+    email VARCHAR(190) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    role ENUM('customer', 'staff', 'admin', 'super_admin') NOT NULL DEFAULT 'customer',
+    employee_id VARCHAR(40) DEFAULT NULL UNIQUE,
+    department VARCHAR(120) DEFAULT NULL,
+    phone VARCHAR(40) DEFAULT NULL,
+    city VARCHAR(120) DEFAULT NULL,
+    avatar VARCHAR(20) DEFAULT NULL,
+    status ENUM('online', 'offline', 'suspended') NOT NULL DEFAULT 'offline',
+    last_login_at DATETIME DEFAULT NULL,
+    last_login_ip VARCHAR(64) DEFAULT NULL,
+    sessions_count INT UNSIGNED NOT NULL DEFAULT 0,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS products (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    item_code VARCHAR(40) NOT NULL UNIQUE,
+    name VARCHAR(180) NOT NULL,
+    category VARCHAR(120) NOT NULL,
+    quantity INT NOT NULL DEFAULT 0,
+    price DECIMAL(10, 2) NOT NULL DEFAULT 0,
+    is_active TINYINT(1) NOT NULL DEFAULT 1,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS orders (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    order_code VARCHAR(40) NOT NULL UNIQUE,
+    user_id INT UNSIGNED DEFAULT NULL,
+    customer_name VARCHAR(180) NOT NULL,
+    customer_email VARCHAR(190) DEFAULT NULL,
+    address TEXT NOT NULL,
+    contact_number VARCHAR(40) NOT NULL,
+    payment_method VARCHAR(60) NOT NULL DEFAULT 'Cash on Delivery',
+    status ENUM('pending', 'approved', 'in-transit', 'delivered', 'rejected', 'cancelled') NOT NULL DEFAULT 'pending',
+    total_amount DECIMAL(10, 2) NOT NULL DEFAULT 0,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT fk_orders_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
+);
+
+CREATE TABLE IF NOT EXISTS order_items (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    order_id INT UNSIGNED NOT NULL,
+    product_id INT UNSIGNED DEFAULT NULL,
+    product_name VARCHAR(180) NOT NULL,
+    unit_price DECIMAL(10, 2) NOT NULL DEFAULT 0,
+    quantity INT NOT NULL DEFAULT 1,
+    subtotal DECIMAL(10, 2) NOT NULL DEFAULT 0,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_order_items_order FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+    CONSTRAINT fk_order_items_product FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE SET NULL
+);

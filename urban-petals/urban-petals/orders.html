@@ -1,0 +1,81 @@
+	<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Urban Petals – Orders</title>
+  <link rel="stylesheet" href="css/shared.css"/>
+  <link rel="stylesheet" href="css/orders.css"/>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="logo-wrap">
+      <div class="logo-fallback">
+        <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="40" cy="40" r="38" fill="#e8f5e9" stroke="#4caf50" stroke-width="3"/>
+          <circle cx="40" cy="40" r="28" fill="none" stroke="#2e7d32" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <text x="40" y="30" text-anchor="middle" font-size="7" font-weight="800" fill="#2e7d32" font-family="sans-serif">URBAN</text>
+          <text x="40" y="40" text-anchor="middle" font-size="9" font-weight="800" fill="#1b5e20" font-family="sans-serif">&#x1F33F;</text>
+          <text x="40" y="52" text-anchor="middle" font-size="7" font-weight="800" fill="#2e7d32" font-family="sans-serif">PETALS</text>
+        </svg>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="dashboard.html" class="nav-item">
+        <span class="nav-icon">&#9783;</span>
+        <span class="nav-label">Dashboard</span>
+      </a>
+      <a href="orders.html" class="nav-item active">
+        <span class="nav-icon">&#128722;</span>
+        <span class="nav-label">Orders</span>
+      </a>
+      <a href="products.html" class="nav-item">
+        <span class="nav-icon">&#127873;</span>
+        <span class="nav-label">Products</span>
+      </a>
+      <a href="accounts.html" class="nav-item">
+        <span class="nav-icon">&#128101;</span>
+        <span class="nav-label">Accounts</span>
+      </a>
+    </nav>
+    <button class="power-btn">&#9211;</button>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="search-bar">
+        <span class="search-icon">&#128269;</span>
+        <input type="text" id="searchInput" placeholder="Search orders..." />
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-btn">&#128172;</button>
+        <button class="icon-btn">&#128276;</button>
+        <button class="icon-btn">&#128100;</button>
+      </div>
+    </header>
+
+    <section class="orders-section">
+      <div class="table-wrapper">
+        <table class="orders-table">
+          <thead>
+            <tr>
+              <th>ORDERS</th>
+              <th>USER</th>
+              <th>TOTAL</th>
+              <th>ADDRESS</th>
+              <th>PAYMENT</th>
+              <th>DATE</th>
+              <th>STATUS</th>
+            </tr>
+          </thead>
+          <tbody id="ordersBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/api-client.js"></script>
+  <script src="js/admin-auth.js"></script>
+  <script src="js/orders.js"></script>
+</body>
+</html>

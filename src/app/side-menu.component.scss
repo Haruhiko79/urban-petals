@@ -1,0 +1,49 @@
+:host {
+  display: contents;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 1.4rem 1rem 1.1rem;
+  background: var(--ion-color-light);
+}
+
+.profile ion-avatar {
+  display: grid;
+  width: 3.5rem;
+  height: 3.5rem;
+  place-items: center;
+  background: var(--ion-color-primary-tint);
+  color: var(--ion-color-primary-contrast);
+}
+
+.profile ion-avatar ion-icon {
+  font-size: 2rem;
+}
+
+.profile h2 {
+  margin: 0 0 0.25rem;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.profile ion-note {
+  font-size: 0.82rem;
+}
+
+ion-list {
+  padding-top: 0.75rem;
+}
+
+ion-item {
+  --padding-start: 1rem;
+  --inner-padding-end: 1rem;
+  --min-height: 3.2rem;
+}
+
+ion-item ion-icon {
+  color: var(--ion-color-primary);
+  font-size: 1.35rem;
+}

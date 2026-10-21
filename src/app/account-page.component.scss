@@ -1,0 +1,17 @@
+.account-page { max-width: 600px; margin: auto; padding: 28px 20px; }
+.avatar { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: var(--green-pale); color: var(--green-dark); font-size: 36px; }
+.eyebrow { margin-top: 24px; color: var(--text-muted); font-size: 11px; letter-spacing: .15em; }
+h1 { font: 700 2rem Georgia, serif; color: var(--green-dark); }
+h2 { font-size: 18px; margin-top: 32px; }
+p { line-height: 1.6; }
+.account-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+ion-list { background: transparent; }
+ion-item { --background: transparent; --padding-start: 0; --min-height: 56px; }
+.version { color: var(--text-muted); font-size: 12px; text-align: center; margin-top: 32px; }
+.profile-heading { display: flex; gap: 16px; align-items: center; margin-bottom: 24px; }
+.profile-heading h1 { margin: 0; overflow-wrap: anywhere; }
+.profile-heading p { margin: 4px 0; overflow-wrap: anywhere; }
+.avatar { object-fit: cover; flex-shrink: 0; }
+form { display: grid; gap: 16px; }
+.photo-picker { display: grid; gap: 10px; }
+input[type=file] { max-width: 100%; }

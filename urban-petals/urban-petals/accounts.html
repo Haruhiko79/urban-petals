@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Urban Petals – Accounts</title>
+  <link rel="stylesheet" href="css/shared.css"/>
+  <link rel="stylesheet" href="css/accounts.css"/>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="logo-wrap">
+      <div class="logo-fallback">
+        <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="40" cy="40" r="38" fill="#e8f5e9" stroke="#4caf50" stroke-width="3"/>
+          <circle cx="40" cy="40" r="28" fill="none" stroke="#2e7d32" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <text x="40" y="30" text-anchor="middle" font-size="7" font-weight="800" fill="#2e7d32" font-family="sans-serif">URBAN</text>
+          <text x="40" y="40" text-anchor="middle" font-size="9" font-weight="800" fill="#1b5e20" font-family="sans-serif">&#x1F33F;</text>
+          <text x="40" y="52" text-anchor="middle" font-size="7" font-weight="800" fill="#2e7d32" font-family="sans-serif">PETALS</text>
+        </svg>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="dashboard.html" class="nav-item">
+        <span class="nav-icon">&#9783;</span>
+        <span class="nav-label">Dashboard</span>
+      </a>
+      <a href="orders.html" class="nav-item">
+        <span class="nav-icon">&#128722;</span>
+        <span class="nav-label">Orders</span>
+      </a>
+      <a href="products.html" class="nav-item">
+        <span class="nav-icon">&#127873;</span>
+        <span class="nav-label">Products</span>
+      </a>
+      <a href="accounts.html" class="nav-item active">
+        <span class="nav-icon">&#128101;</span>
+        <span class="nav-label">Accounts</span>
+      </a>
+    </nav>
+    <button class="power-btn" id="logoutBtn" title="Log out">&#9211;</button>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="search-bar">
+        <span class="search-icon">&#128269;</span>
+        <input type="text" id="searchInput" placeholder="Search accounts..."/>
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-btn">&#128172;</button>
+        <button class="icon-btn">&#128276;</button>
+        <button class="icon-btn">&#128100;</button>
+      </div>
+    </header>
+
+    <section class="accounts-section">
+      <!-- Header row -->
+      <div class="accounts-header">
+        <div>
+          <h2 class="page-title">
+            Admin Accounts
+            <span class="api-status" id="apiStatus">MOCK</span>
+          </h2>
+          <p class="page-subtitle">Login activity log for all administrator accounts</p>
+        </div>
+        <div class="header-right">
+          <div class="online-pill">
+            <span class="online-dot"></span>
+            <span id="onlineCount">0</span> online now
+          </div>
+          <button class="btn-add-account" id="addAccountBtn">+ Add Account</button>
+        </div>
+      </div>
+
+      <!-- Stats row -->
+      <div class="stats-row">
+        <div class="mini-stat">
+          <span class="mini-stat-icon">&#128101;</span>
+          <div>
+            <p class="mini-stat-val" id="statTotal">0</p>
+            <p class="mini-stat-label">Total Accounts</p>
+          </div>
+        </div>
+        <div class="mini-stat">
+          <span class="mini-stat-icon">&#9989;</span>
+          <div>
+            <p class="mini-stat-val" id="statActive">0</p>
+            <p class="mini-stat-label">Active Today</p>
+          </div>
+        </div>
+        <div class="mini-stat">
+          <span class="mini-stat-icon">&#128274;</span>
+          <div>
+            <p class="mini-stat-val" id="statSuspended">0</p>
+            <p class="mini-stat-label">Suspended</p>
+          </div>
+        </div>
+        <div class="mini-stat">
+          <span class="mini-stat-icon">&#128336;</span>
+          <div>
+            <p class="mini-stat-val" id="statLogins">0</p>
+            <p class="mini-stat-label">Logins (7 days)</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="table-wrapper">
+        <table class="accounts-table">
+          <thead>
+            <tr>
+              <th>ACCOUNT</th>
+              <th>ROLE</th>
+              <th>LAST LOGIN</th>
+              <th>LOGIN IP</th>
+              <th>SESSIONS</th>
+              <th>STATUS</th>
+              <th>ACTIONS</th>
+            </tr>
+          </thead>
+          <tbody id="accountsBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- Add Account Modal -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <h3>Add Admin Account</h3>
+      <div class="modal-fields">
+        <input type="text"  placeholder="Full Name"  id="newName"/>
+        <input type="email" placeholder="Email"      id="newEmail"/>
+        <select id="newRole">
+          <option value="">Select Role</option>
+          <option value="Super Admin">Super Admin</option>
+          <option value="Admin">Admin</option>
+          <option value="Staff">Staff</option>
+        </select>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-cancel"  id="cancelModal">Cancel</button>
+        <button class="btn-confirm" id="confirmAdd">Add Account</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logout Confirmation Modal -->
+  <div class="modal-overlay" id="logoutOverlay">
+    <div class="modal" style="width:320px;text-align:center;">
+      <h3>Log out?</h3>
+      <p style="font-size:13px;color:#8a9a8b;margin:8px 0 20px;font-weight:600;">You will be redirected to the login page.</p>
+      <div class="modal-actions" style="justify-content:center;">
+        <button class="btn-cancel"  id="cancelLogout">Cancel</button>
+        <button class="btn-logout-confirm" id="confirmLogout">Log Out</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/api-client.js"></script>
+  <script src="js/admin-auth.js"></script>
+  <script src="js/accounts.js"></script>
+</body>
+</html>

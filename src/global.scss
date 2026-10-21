@@ -1,0 +1,80 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+
+/**
+ * Ionic Dark Mode
+ * -----------------------------------------------------
+ * For more info, please see:
+ * https://ionicframework.com/docs/theming/dark-mode
+ */
+
+/* @import "@ionic/angular/css/palettes/dark.always.css"; */
+/* @import "@ionic/angular/css/palettes/dark.class.css"; */
+:root {
+	--green-dark: #2e5f2e;
+	--green-mid: #4a8a4a;
+	--green-light: #8fbc6a;
+	--green-pale: #e8f5e2;
+	--cream: #faf9f5;
+	--text: #1a2e1a;
+	--text-muted: #5a7a5a;
+	--border: #d0e8c8;
+	--shadow: 0 4px 24px rgba(46, 95, 46, .1);
+	--ion-font-family: 'Lato', 'Trebuchet MS', sans-serif;
+	--ion-background-color: var(--cream);
+	--ion-text-color: var(--text);
+	--ion-color-primary: var(--green-dark);
+}
+
+html, body { background: var(--cream); color: var(--text); font-family: 'Lato', 'Trebuchet MS', sans-serif; }
+body { margin: 0; }
+ion-content { --background: var(--cream); }
+ion-toolbar { --background: rgba(250, 249, 245, .96); --color: var(--green-dark); --border-color: var(--border); }
+ion-button { --border-radius: 8px; --box-shadow: none; text-transform: none; font-weight: 700; }
+.app-header { position: sticky; top: 0; z-index: 10; box-shadow: var(--shadow); }
+.app-header ion-title { font-family: 'Playfair Display', Georgia, serif; font-weight: 700; }
+
+.demo-notice { background: var(--green-pale); border-radius: 12px; padding: 14px 16px; color: var(--green-dark); font-size: 14px; line-height: 1.5; }
+ion-button { min-height: 48px; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--green-mid); outline-offset: 3px; }
+ion-content { --padding-bottom: var(--ion-safe-area-bottom, 0px); }
+ion-tabs ion-content { --padding-bottom: 0px; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+.notice, .error-notice { padding: 16px; margin: 16px; border-radius: 12px; line-height: 1.5; }
+.notice { background: var(--green-pale); color: var(--green-dark); }
+.error-notice { background: #fff0e9; color: #8b2a1f; border: 1px solid #e8b5a6; }
+form .notice, form .error-notice { margin: 12px 0; }
+.bag-feedback { color: var(--green-dark); min-height: 22px; margin: 8px 16px; }
+.catalog-skeleton { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; padding: 16px; }
+.catalog-skeleton div { aspect-ratio: 1; background: var(--green-pale); border-radius: 16px; }
+button:disabled { opacity: .5; cursor: not-allowed; }
+button, a, ion-button { -webkit-tap-highlight-color: transparent; }
+button:active:not(:disabled) { transform: scale(.97); }
+ion-input { --highlight-color-focused: var(--green-dark); }
+@media (max-width: 760px) { .catalog-skeleton { grid-template-columns: repeat(2, 1fr); } }

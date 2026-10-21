@@ -1,0 +1,69 @@
+<ion-menu contentId="main-content" type="overlay" menuId="main-menu">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Urban Petals</ion-title>
+      <ion-menu-toggle slot="end">
+        <ion-item button lines="none" detail="false" aria-label="Close menu">
+          <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <section class="profile" aria-label="Account profile">
+      <ion-avatar>
+        @if (profile()?.imageUrl) {
+          <img [src]="profile()!.imageUrl" alt="Profile photo" (error)="$any($event.target).src = 'assets/icon/favicon.png'" />
+        } @else {
+          <img src="assets/icon/favicon.png" alt="Urban Petals" />
+        }
+      </ion-avatar>
+      <div>
+        <h2>{{ profile()?.name || 'Welcome, plant lover' }}</h2>
+        <ion-note>{{ profile()?.phone || 'Sign in to manage your account' }}</ion-note>
+      </div>
+    </section>
+
+    <ion-list lines="none">
+      <ion-menu-toggle auto-hide="true">
+        <ion-item button detail="false" routerLink="/tabs/tab1">
+          <ion-icon slot="start" name="home-outline" aria-hidden="true"></ion-icon>
+          <ion-label>Home</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle auto-hide="true">
+        <ion-item button detail="false" routerLink="/tabs/tab2">
+          <ion-icon slot="start" name="leaf-outline" aria-hidden="true"></ion-icon>
+          <ion-label>Shop</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle auto-hide="true">
+        <ion-item button detail="false" routerLink="/tabs/tab3">
+          <ion-icon slot="start" name="bag-handle-outline" aria-hidden="true"></ion-icon>
+          <ion-label>Bag</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle auto-hide="true">
+        <ion-item button detail="false" routerLink="/tabs/account">
+          <ion-icon slot="start" name="person-outline" aria-hidden="true"></ion-icon>
+          <ion-label>Account</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle auto-hide="true">
+        <ion-item button detail="false" routerLink="/orders">
+          <ion-icon slot="start" name="bag-handle-outline" aria-hidden="true"></ion-icon>
+          <ion-label>My orders</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+      @if (!profile()) {
+        <ion-menu-toggle auto-hide="true">
+          <ion-item button detail="false" routerLink="/signin">
+            <ion-icon slot="start" name="log-in-outline" aria-hidden="true"></ion-icon>
+            <ion-label>Sign in</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      }
+    </ion-list>
+  </ion-content>
+</ion-menu>

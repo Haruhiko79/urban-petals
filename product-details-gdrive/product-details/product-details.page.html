@@ -1,0 +1,92 @@
+<app-site-header [back]="true"></app-site-header>
+
+<ion-content>
+  @if (product(); as p) {
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a routerLink="/tabs/tab2">Shop</a><span aria-hidden="true">/</span>
+      <a routerLink="/tabs/tab2" [queryParams]="{ category: p.group }">{{ p.group }}</a><span aria-hidden="true">/</span>
+      <span aria-current="page">{{ p.name }}</span>
+    </nav>
+
+    @if (shop.preview) { <p class="notice catalog-preview-note">Online ordering is not connected yet. Prices and availability are not live.</p> }
+
+    <section class="detail">
+      <div class="gallery">
+        <div class="main-image">
+          <img [src]="p.image" [alt]="p.name" (error)="onImageError($event)" />
+          @if (p.badge) { <span class="badge">{{ p.badge }}</span> }
+        </div>
+      </div>
+
+      <div class="info">
+        <p class="eyebrow">{{ p.category }}</p>
+        <h1>{{ p.name }}</h1>
+        <p class="price">{{ p.price | currency:'PHP':'₱':'1.2-2' }}</p>
+
+        <p class="stock" [class.low]="lowStock()" [class.out]="soldOut()" role="status">
+          @if (soldOut()) { Sold out }
+          @else if (lowStock()) { Only {{ p.stock }} left }
+          @else if (p.stock === null) { Availability confirmed at checkout }
+          @else { In stock }
+        </p>
+
+        <p class="description">{{ p.description || 'A thoughtful addition to your growing space.' }}</p>
+
+        <div class="purchase">
+          <div class="qty" role="group" aria-label="Quantity">
+            <button type="button" (click)="decrease()" [disabled]="quantity() <= 1 || soldOut()" aria-label="Decrease quantity">−</button>
+            <output aria-live="polite">{{ quantity() }}</output>
+            <button type="button" (click)="increase()" [disabled]="quantity() >= maxQty() || soldOut()" aria-label="Increase quantity">+</button>
+          </div>
+          <ion-button expand="block" class="add-btn" (click)="addToBag()" [disabled]="soldOut()">
+            {{ soldOut() ? 'Sold out' : 'Add to bag' }}
+          </ion-button>
+        </div>
+        <ion-button expand="block" fill="outline" class="buy-btn" (click)="buyNow()" [disabled]="soldOut()">Buy now</ion-button>
+
+        <p class="bag-feedback" role="status">
+          @if (added()) { {{ quantity() }} × {{ p.name }} in your bag. <a routerLink="/tabs/tab3">View bag →</a> }
+          @else { {{ shop.feedback() }} }
+        </p>
+
+        <ul class="highlights">
+          @for (h of highlights(); track h.title) {
+            <li><span aria-hidden="true">{{ h.icon }}</span><div><strong>{{ h.title }}</strong><p>{{ h.text }}</p></div></li>
+          }
+        </ul>
+
+        <dl class="specs">
+          <div><dt>Collection</dt><dd>{{ p.group }}</dd></div>
+          <div><dt>Type</dt><dd>{{ p.category }}</dd></div>
+          <div><dt>Payment</dt><dd>Cash on Delivery</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    @if (related().length) {
+      <section class="related">
+        <h2>You might also like</h2>
+        <div class="related-grid">
+          @for (r of related(); track r.id) {
+            <a class="related-card" [routerLink]="['/product', r.id]">
+              <div class="thumb"><img [src]="r.image" [alt]="r.name" loading="lazy" (error)="onImageError($event)" /></div>
+              <p class="cat">{{ r.category }}</p>
+              <h3>{{ r.name }}</h3>
+              <strong>{{ r.price | currency:'PHP':'₱':'1.2-2' }}</strong>
+            </a>
+          }
+        </div>
+      </section>
+    }
+  } @else if (shop.loading()) {
+    <div class="state" role="status">Loading product…</div>
+  } @else if (shop.error()) {
+    <div class="state" role="alert">{{ shop.error() }} <ion-button fill="clear" (click)="shop.loadProducts()">Retry</ion-button></div>
+  } @else {
+    <div class="state">
+      <h1>Product not found</h1>
+      <p>This item may no longer be available.</p>
+      <ion-button routerLink="/tabs/tab2">Back to shop</ion-button>
+    </div>
+  }
+</ion-content>

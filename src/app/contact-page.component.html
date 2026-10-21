@@ -1,0 +1,22 @@
+<app-site-header [back]="true"></app-site-header>
+<ion-content>
+  <main class="contact-page">
+    <section class="contact-hero"><h1>We'd love to<br /><em>hear from you.</em></h1><p>Questions about your order or caring for your plants? Leave us a message.</p></section>
+    <section class="contact-form">
+      @if (sent()) {
+        <div class="success" role="status"><h2>Message received.</h2><p>Your message has been submitted to Urban Petals.</p><ion-button (click)="sent.set(false)">Write another message</ion-button></div>
+      } @else {
+        <h2>Contact Urban Petals</h2>
+        @if (error()) { <p class="error-notice" role="alert">{{ error() }}</p> }
+        <form #contactForm="ngForm" (ngSubmit)="contactForm.valid && submit()" [attr.aria-busy]="busy()">
+          <div class="two-col"><ion-input [(ngModel)]="firstName" name="firstName" label="First name" labelPlacement="stacked" autocomplete="given-name" maxlength="100" required></ion-input><ion-input [(ngModel)]="lastName" name="lastName" label="Last name" labelPlacement="stacked" autocomplete="family-name" maxlength="100"></ion-input></div>
+          <ion-input [(ngModel)]="email" name="email" type="email" email label="Email address" labelPlacement="stacked" autocomplete="email" maxlength="190" required></ion-input>
+          <ion-input [(ngModel)]="phone" name="phone" type="tel" label="Phone number (optional)" labelPlacement="stacked" autocomplete="tel" maxlength="40"></ion-input>
+          <ion-select [(ngModel)]="subject" name="subject" label="Topic" labelPlacement="stacked" placeholder="Select a topic" required><ion-select-option value="Order & Delivery">Order & Delivery</ion-select-option><ion-select-option value="Returns & Refunds">Returns & Refunds</ion-select-option><ion-select-option value="Plant Care Advice">Plant Care Advice</ion-select-option><ion-select-option value="Product Inquiry">Product Inquiry</ion-select-option><ion-select-option value="Feedback & Suggestions">Feedback & Suggestions</ion-select-option></ion-select>
+          <ion-textarea [(ngModel)]="message" name="message" label="Message" labelPlacement="stacked" rows="5" maxlength="5000" required></ion-textarea>
+          <ion-button type="submit" expand="block" [disabled]="contactForm.invalid || busy()">{{ busy() ? 'Sending…' : 'Send message' }}</ion-button>
+        </form>
+      }
+    </section>
+  </main>
+</ion-content>

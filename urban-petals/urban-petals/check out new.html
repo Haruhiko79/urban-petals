@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout - Urban Petals</title>
+  <link rel="stylesheet" href="css/check out and receipt.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet"/>
+</head>
+<body onload="loadCheckout()">
+
+<nav class="navbar">
+  <div class="nav-left">
+    <a href="Homepage.html" class="logo-link" title="Urban Petals Home">
+      <div class="logo-circle">
+        <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="40" cy="40" r="37" fill="none" stroke="#2e5f2e" stroke-width="1.5"/>
+          <circle cx="40" cy="40" r="30" fill="none" stroke="#2e5f2e" stroke-width="0.8" stroke-dasharray="3 3"/>
+          <text x="40" y="16" text-anchor="middle" font-size="6.5" fill="#2e5f2e" font-family="Lato,sans-serif" font-weight="700" letter-spacing="2">URBAN</text>
+          <g transform="translate(40,40)">
+            <ellipse rx="3.5" ry="8" fill="#8fbc6a" transform="rotate(0) translate(0,-11)"/>
+            <ellipse rx="3.5" ry="8" fill="#8fbc6a" transform="rotate(60) translate(0,-11)"/>
+            <ellipse rx="3.5" ry="8" fill="#8fbc6a" transform="rotate(120) translate(0,-11)"/>
+            <ellipse rx="3.5" ry="8" fill="#8fbc6a" transform="rotate(180) translate(0,-11)"/>
+            <ellipse rx="3.5" ry="8" fill="#8fbc6a" transform="rotate(240) translate(0,-11)"/>
+            <ellipse rx="3.5" ry="8" fill="#8fbc6a" transform="rotate(300) translate(0,-11)"/>
+            <circle r="6" fill="#2e5f2e"/>
+          </g>
+          <text x="40" y="63" text-anchor="middle" font-size="6.5" fill="#2e5f2e" font-family="Lato,sans-serif" font-weight="700" letter-spacing="2">PETALS</text>
+          <text x="40" y="73" text-anchor="middle" font-size="3.5" fill="#2e5f2e" font-family="Lato,sans-serif" letter-spacing="0.8">YOUR GARDEN PARTNER</text>
+        </svg>
+      </div>
+    </a>
+  </div>
+  <ul class="nav-links">
+    <li><a href="Homepage.html">Products</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="help.html">Help</a></li>
+  </ul>
+  <div class="nav-right">
+    <div id="navAuthArea">
+      <a href="Signin.html" class="btn-signin">Sign In</a>
+      <a href="Register.html" class="btn-register">Register</a>
+    </div>
+  </div>
+</nav>
+
+<div class="checkout-container">
+  <div class="checkout-box">
+    <h2>Customer Info</h2>
+    <input type="text" id="name" placeholder="Full Name">
+    <input type="text" id="address" placeholder="Address">
+    <input type="text" id="contact" placeholder="Contact Number">
+  </div>
+
+  <div class="checkout-box">
+    <h2>Order Summary</h2>
+    <div id="orderSummary"></div>
+    <div class="total">Total: <span id="total">PHP 0.00</span></div>
+    <button class="btn-primary" onclick="placeOrder()">Place Order</button>
+  </div>
+
+  <div class="checkout-box payment-box">
+    <h2>Payment Method</h2>
+    <div class="payment-options">
+      <label class="payment-item">
+        <input type="radio" name="payment" value="Cash on Delivery" checked onchange="handlePaymentMethodChange()">
+        <span>Cash on Delivery (COD)</span>
+      </label>
+
+      <label class="payment-item">
+        <input type="radio" name="payment" value="GCash/Maya" onchange="handlePaymentMethodChange()">
+        <span>E-Wallet (GCash/Maya)</span>
+      </label>
+
+      <label class="payment-item">
+        <input type="radio" name="payment" value="Bank Transfer" onchange="handlePaymentMethodChange()">
+        <span>Bank Transfer</span>
+      </label>
+    </div>
+
+    <div class="payment-extra" id="paymentExtra">
+      <div class="payment-extra-card">
+        <p class="payment-extra-label">Selected Method</p>
+        <h3 id="paymentExtraTitle">Online Payment</h3>
+        <p class="payment-extra-copy" id="paymentExtraCopy">Please enter the payment reference you received after sending your payment.</p>
+      </div>
+
+      <div class="payment-extra-grid">
+        <div class="detail-chip">
+          <span id="paymentDetailLabel">Wallet Number</span>
+          <strong id="paymentDetailValue">0917 555 0147</strong>
+        </div>
+        <div class="detail-chip">
+          <span>Account Name</span>
+          <strong>Urban Petals PH</strong>
+        </div>
+      </div>
+
+      <input type="text" id="paymentReference" placeholder="Enter payment reference number">
+      <small class="payment-help">For online payments, add your transfer or wallet reference before placing the order.</small>
+    </div>
+  </div>
+</div>
+
+<script src="js/api-client.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/check out and receipt.js?v=20260416-1"></script>
+</body>
+</html>

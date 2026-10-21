@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Urban Petals – Blog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/blog.css"/>
+  <script src="js/nav 2.js" defer></script>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav class="navbar">
+  <div class="nav-left">
+    <a href="Homepage.html" class="logo-link" title="Urban Petals Home">
+  <div class="logo-circle">
+  <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="40" cy="40" r="37" fill="none" stroke="#2e5f2e" stroke-width="1.5"/>
+    <circle cx="40" cy="40" r="30" fill="none" stroke="#2e5f2e" stroke-width="0.8" stroke-dasharray="3 3"/>
+    <text x="40" y="16" text-anchor="middle" font-size="6.5" fill="#2e5f2e" font-family="Lato,sans-serif" font-weight="700" letter-spacing="2">URBAN</text>
+    <g transform="translate(40,40)">
+      <ellipse rx="3.5" ry="8" fill="#8fbc6a" transform="rotate(0) translate(0,-11)"/>
+      <ellipse rx="3.5" ry="8" fill="#8fbc6a" transform="rotate(60) translate(0,-11)"/>
+      <ellipse rx="3.5" ry="8" fill="#8fbc6a" transform="rotate(120) translate(0,-11)"/>
+      <ellipse rx="3.5" ry="8" fill="#8fbc6a" transform="rotate(180) translate(0,-11)"/>
+      <ellipse rx="3.5" ry="8" fill="#8fbc6a" transform="rotate(240) translate(0,-11)"/>
+      <ellipse rx="3.5" ry="8" fill="#8fbc6a" transform="rotate(300) translate(0,-11)"/>
+      <circle r="6" fill="#2e5f2e"/>
+    </g>
+    <text x="40" y="63" text-anchor="middle" font-size="6.5" fill="#2e5f2e" font-family="Lato,sans-serif" font-weight="700" letter-spacing="2">PETALS</text>
+    <text x="40" y="73" text-anchor="middle" font-size="3.5" fill="#2e5f2e" font-family="Lato,sans-serif" letter-spacing="0.8">YOUR GARDEN PARTNER</text>
+  </svg>
+</div>
+    </a>
+    <div class="nav-pill">
+      <a href="profile.html" class="pill-btn" title="My Profile">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        <span>Profile</span>
+      </a>
+      <div class="pill-sep"></div>
+      <button class="pill-btn" onclick="openCartModal()" title="Cart">
+        <div class="cart-icon-wrap">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </div>
+        <span>Cart</span>
+      </button>
+    </div>
+  </div>
+
+  <ul class="nav-links">
+    <li><a href="Homepage.html">Products</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="blog.html" class="active">Blog</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="help.html">Help</a></li>
+  </ul>
+
+  <div class="nav-right">
+    <div id="navAuthArea">
+      <a href="Signin.html" class="btn-signin">Sign In</a>
+      <a href="Register.html" class="btn-register">Register</a>
+    </div>
+  </div>
+  <button class="hamburger" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="Homepage.html" onclick="closeMobileMenu()">Products</a>
+  <a href="about.html" onclick="closeMobileMenu()">About</a>
+  <a href="blog.html" onclick="closeMobileMenu()">Blog</a>
+  <a href="contact.html" onclick="closeMobileMenu()">Contact</a>
+  <a href="help.html" onclick="closeMobileMenu()">Help</a>
+  <div id="mobileAuthArea">
+    <a href="Signin.html" class="btn-signin">Sign In</a>
+    <a href="Register.html" class="btn-register">Register</a>
+  </div>
+</div>
+
+<main>
+
+  <!-- HERO -->
+  <div class="blog-hero">
+    <span class="blog-hero-tag">The Urban Petals Blog</span>
+    <h1>Grow Smarter,<br>Live Greener</h1>
+    <p>Plant care guides, gardening tips, home décor inspiration, and stories from our community — straight from the greenhouse to your screen.</p>
+    <div class="blog-search-wrap">
+      <svg class="blog-search-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" placeholder="Search articles… e.g. 'watering tips', 'succulents'" id="blogSearch" oninput="filterPosts(this.value)"/>
+    </div>
+  </div>
+
+
+  <!-- CATEGORY FILTER -->
+  <div class="filter-bar">
+    <span class="filter-label">Filter:</span>
+    <button class="filter-btn active" onclick="setFilter('all', this)">All</button>
+    <button class="filter-btn" onclick="setFilter('plant-care', this)">Plant Care</button>
+    <button class="filter-btn" onclick="setFilter('gardening', this)">Gardening</button>
+    <button class="filter-btn" onclick="setFilter('decor', this)">Home Décor</button>
+    <button class="filter-btn" onclick="setFilter('tips', this)">Tips & Tricks</button>
+    <button class="filter-btn" onclick="setFilter('community', this)">Community</button>
+  </div>
+
+  <div class="featured-section" id="featuredSection">
+    <div class="featured-card">
+    <a href="https://www.patchplants.com/pages/plant-care/complete-guide-to-watering/" class="featured-visual thumb-sage">
+     <img src="https://cdn.patchplants.com/uploads/16_9_Hero_min_4e8e364864.jpg" alt="Featured Plant" style="width:100%; height:100%;     object-fit:cover;">
+        <svg class="featured-visual-deco" width="160" height="160" viewBox="0 0 80 80">
+          <g transform="translate(40,40)">
+            <ellipse rx="6" ry="14" fill="#2e5f2e" transform="rotate(0) translate(0,-18)"/>
+            <ellipse rx="6" ry="14" fill="#2e5f2e" transform="rotate(60) translate(0,-18)"/>
+            <ellipse rx="6" ry="14" fill="#2e5f2e" transform="rotate(120) translate(0,-18)"/>
+            <ellipse rx="6" ry="14" fill="#2e5f2e" transform="rotate(180) translate(0,-18)"/>
+            <ellipse rx="6" ry="14" fill="#2e5f2e" transform="rotate(240) translate(0,-18)"/>
+            <ellipse rx="6" ry="14" fill="#2e5f2e" transform="rotate(300) translate(0,-18)"/>
+            <circle r="10" fill="#2e5f2e"/>
+          </g>
+        </svg>
+        <span class="featured-badge">✦ Featured</span>
+      </a>
+      <div class="featured-body">
+        <div class="post-meta">
+          <span class="post-cat">Plant Care</span>
+          <span class="post-dot"></span>
+          <span class="post-date">April 10, 2025</span>
+          <span class="post-dot"></span>
+        </div>
+        <h2>The Ultimate Guide to Watering Your Indoor Plants (Without Overwatering)</h2>
+        <p>Overwatering is the number one killer of houseplants — and it's more common than you'd think.</p>
+        <div class="author-row">
+          <div class="author-avatar">
+            <svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          </div>
+          <span class="author-name">Kris Virtuso · Head of Horticulture</span>
+        </div>
+        <a href="#" class="read-btn">Read Article →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEWSLETTER -->
+  <div class="newsletter-section">
+    <div class="newsletter-inner">
+      <h2>Get Plant Tips in Your Inbox</h2>
+      <div class="newsletter-form">
+        <input type="email" id="nlEmail" placeholder="your@email.com"/>
+        <button onclick="subscribeNewsletter()">Subscribe</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAGS -->
+  <div class="tags-section">
+    <h2>Popular Topics</h2>
+    <div class="tags-wrap">
+      <a href="#" class="tag">Succulents</a>
+      <a href="#" class="tag">Watering Tips</a>
+      <a href="#" class="tag">Monstera</a>
+      <a href="#" class="tag">Pothos</a>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="Homepage.html" class="footer-logo">
+        <div class="footer-logo-icon">
+          <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="40" cy="40" r="37" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+            <g transform="translate(40,40)">
+              <ellipse rx="3.5" ry="8" fill="#8fbc6a" transform="rotate(0) translate(0,-11)"/>
+              <ellipse rx="3.5" ry="8" fill="#8fbc6a" transform="rotate(60) translate(0,-11)"/>
+              <ellipse rx="3.5" ry="8" fill="#8fbc6a" transform="rotate(120) translate(0,-11)"/>
+              <ellipse rx="3.5" ry="8" fill="#8fbc6a" transform="rotate(180) translate(0,-11)"/>
+              <ellipse rx="3.5" ry="8" fill="#8fbc6a" transform="rotate(240) translate(0,-11)"/>
+              <ellipse rx="3.5" ry="8" fill="#8fbc6a" transform="rotate(300) translate(0,-11)"/>
+              <circle r="6" fill="rgba(255,255,255,0.9)"/>
+            </g>
+          </svg>
+        </div>
+        <div>
+          <span class="footer-brand-name">Urban Petals</span>
+          <span class="footer-brand-sub">Your Garden Partner</span>
+        </div>
+      </a>
+      <p>Bringing nature closer to home. We curate the finest plants, tools, and garden accessories for every green space — big or small.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-btn" title="Facebook"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        <a href="#" class="social-btn" title="Instagram"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
+        <a href="#" class="social-btn" title="Pinterest"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.17-1.98.04-2.83.18-.77 1.22-5.17 1.22-5.17s-.31-.62-.31-1.54c0-1.45.84-2.53 1.88-2.53.89 0 1.32.67 1.32 1.47 0 .89-.57 2.23-.86 3.47-.24 1.04.51 1.88 1.53 1.88 1.83 0 3.07-2.34 3.07-5.12 0-2.11-1.42-3.69-3.97-3.69-2.9 0-4.7 2.17-4.7 4.59 0 .83.24 1.42.62 1.87.17.2.19.28.13.51-.04.17-.14.57-.18.73-.06.23-.24.32-.44.23-1.24-.51-1.82-1.88-1.82-3.42 0-2.54 2.15-5.6 6.42-5.6 3.44 0 5.72 2.49 5.72 5.17 0 3.55-1.97 6.21-4.87 6.21-.97 0-1.89-.52-2.2-1.11l-.62 2.38c-.19.73-.6 1.47-.94 2.05.71.22 1.46.34 2.23.34 5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg></a>
+        <a href="#" class="social-btn" title="YouTube"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58zM10 15.5v-7l6 3.5-6 3.5z"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="plants.html">Plants</a></li>
+        <li><a href="Flowers.html">Flowers</a></li>
+        <li><a href="Garden.html">Garden Tools</a></li>
+        <li><a href="Pots.html">Pots & Planters</a></li>
+        <li><a href="fertilizer.html">Fertilizers</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about.html">Our Story</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Press</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Help</h4>
+      <ul>
+        <li><a href="help.html">Help Center</a></li>
+        <li><a href="#">Shipping Info</a></li>
+        <li><a href="#">Returns</a></li>
+        <li><a href="#">Order Tracking</a></li>
+        <li><a href="#">Plant Care Tips</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Urban Petals. All rights reserved.</p>
+    <div class="footer-bottom-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Cookie Settings</a>
+    </div>
+  </div>
+</footer>
+
+<div class="modal-backdrop" id="cartBackdrop" onclick="closeCartModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeCartModal()">✕</button>
+    <h2 class="cart-title">Your Cart</h2>
+    <div id="cartItems"><div class="cart-empty"><p>Your cart is empty.<br><a href="Homepage.html">Browse our products</a></p></div></div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="cart-total">Total: <strong id="cartTotal">₱0</strong></div>
+      <button class="modal-btn-primary" onclick="checkout()">Proceed to Checkout →</button>
+      <button class="modal-btn-secondary" onclick="closeCartModal()">Continue Shopping</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script src="js/nav 2.js"></script>
+<script src="js/blog.js"></script>
+</body>
+</html>

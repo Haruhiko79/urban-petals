@@ -1,0 +1,12 @@
+<ion-header class="site-header">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      @if (back()) {
+        <ion-back-button defaultHref="/tabs/account" text="Back"></ion-back-button>
+      } @else {
+        <ion-menu-button menu="main-menu" aria-label="Open navigation menu"></ion-menu-button>
+      }
+    </ion-buttons>
+    <a class="brand" routerLink="/tabs/tab1" aria-label="Urban Petals home"><span aria-hidden="true">✿</span> Urban Petals</a>
+  </ion-toolbar>
+</ion-header>

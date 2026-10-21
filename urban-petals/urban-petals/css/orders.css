@@ -1,0 +1,128 @@
+/* ── ORDERS PAGE ── */
+
+.orders-section {
+  flex: 1;
+  padding: 0 24px 24px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.table-wrapper {
+  background: rgba(255,255,255,.82);
+  backdrop-filter: blur(10px);
+  border-radius: 18px;
+  overflow: auto;
+  box-shadow: 0 4px 28px rgba(0,0,0,.08);
+  flex: 1;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.orders-table thead {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+.orders-table thead tr {
+  background: rgba(255,255,255,.96);
+  border-bottom: 2px solid #e8f2e8;
+}
+.orders-table th {
+  padding: 14px 18px;
+  text-align: left;
+  font-weight: 700;
+  color: var(--text-muted);
+  font-size: 11px;
+  letter-spacing: .6px;
+}
+
+.orders-table tbody tr {
+  border-bottom: 1px solid #f0f7f0;
+  transition: background .14s;
+}
+.orders-table tbody tr:last-child { border-bottom: none; }
+.orders-table tbody tr:hover { background: rgba(76,175,120,.05); }
+
+.orders-table td {
+  padding: 13px 18px;
+  vertical-align: middle;
+}
+
+/* Order ID */
+.order-id {
+  font-weight: 800;
+  color: #3a9a60;
+  font-size: 12.5px;
+  letter-spacing: .2px;
+}
+
+/* User cell */
+.user-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.avatar {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 800; color: #fff;
+  flex-shrink: 0;
+  letter-spacing: .5px;
+}
+.avatar.nc { background: linear-gradient(135deg,#4caf78,#2e7d5a); }
+.avatar.km { background: linear-gradient(135deg,#4caf78,#2e7d5a); }
+.avatar.dc { background: linear-gradient(135deg,#4caf78,#2e7d5a); }
+.avatar.od { background: linear-gradient(135deg,#4caf78,#2e7d5a); }
+.avatar.al { background: linear-gradient(135deg,#4caf78,#2e7d5a); }
+
+.user-name { font-weight: 700; font-size: 13px; color: var(--text-primary); }
+
+/* Total */
+.total-cell { font-weight: 700; font-size: 13px; }
+
+.payment-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.payment-meta strong {
+  color: var(--text-primary);
+  font-size: 12.5px;
+}
+
+.payment-meta span {
+  color: var(--text-muted);
+  font-size: 11.5px;
+  word-break: break-word;
+}
+
+/* Date */
+.date-cell {
+  display: flex; align-items: center; gap: 6px;
+  color: var(--text-muted); font-size: 12.5px;
+}
+.date-icon { font-size: 14px; }
+
+/* Status badges */
+.badge {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 11.5px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.badge.in-transit  { background: #e3f0fd; color: #1a6ac8; }
+.badge.delivered   { background: #e3f5e8; color: #1e7a3e; }
+.badge.pending     { background: #fff4e0; color: #c87000; }
+.badge.rejected    { background: #fde8e8; color: #c0272b; }
+.badge.cancelled   { background: #fde8e8; color: #c0272b; }
+.badge.approved    { background: #e3f5e8; color: #1e7a3e; }

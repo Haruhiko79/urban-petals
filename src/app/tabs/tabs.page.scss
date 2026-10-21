@@ -1,0 +1,6 @@
+:host { --ion-tab-bar-background: var(--cream); }
+ion-tab-bar { border-top: 1px solid var(--border); height: auto; min-height: 64px; }
+ion-tab-button { --color: var(--text-muted); --color-selected: var(--green-dark); min-height: 64px; font-size: 12px; }
+ion-tab-button.tab-selected { font-weight: 700; }
+ion-tab-button.tab-selected ion-icon { background: var(--green-pale); border-radius: 16px; padding: 4px 18px; }
+ion-icon { font-size: 22px; }

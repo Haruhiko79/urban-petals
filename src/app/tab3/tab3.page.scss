@@ -1,0 +1,28 @@
+:host { display: block; }
+.bag-layout { display: grid; gap: 42px; grid-template-columns: minmax(0, 1fr) 340px; max-width: 1100px; margin: 0 auto; padding: 46px 22px 90px; color: #24352b; }
+.eyebrow { color: #6e8b62; font-size: 12px; font-weight: 700; letter-spacing: .14em; }
+h1 { font: 700 clamp(2.5rem, 7vw, 5rem)/.95 Georgia, serif; margin: 12px 0 28px; }
+h2 { font: 700 1.25rem Georgia, serif; }
+ion-item img { width: 64px; height: 64px; object-fit: cover; margin-right: 12px; }
+aside { border: 1px solid #dbe5d8; padding: 24px; align-self: start; }
+aside ion-input { margin-bottom: 15px; }
+.total { border-top: 1px solid #dbe5d8; display: flex; justify-content: space-between; margin: 20px 0; padding-top: 18px; }
+.empty-bag, .confirmation { max-width: 700px; margin: 0 auto; padding: 70px 22px; color: #24352b; }
+.empty-bag h1 em { color: #6e8b62; font-weight: 400; }
+.empty-bag p, .confirmation p { font-size: 18px; line-height: 1.6; }
+@media (max-width: 720px) { .bag-layout { grid-template-columns: 1fr; } }
+
+@media (max-width: 600px) {
+  .bag-layout { padding: 24px 16px; gap: 24px; }
+  aside { padding: 16px; border-radius: 16px; }
+  ion-item { --padding-start: 0; --inner-padding-end: 0; }
+  ion-item img { width: 48px; height: 48px; margin-right: 10px; border-radius: 8px; }
+  ion-label { white-space: normal; }
+  ion-label h2 { font-size: 1rem; }
+  ion-button[slot='end'] { --padding-start: 8px; --padding-end: 8px; margin-left: 4px; }
+}
+fieldset { border: 0; margin: 0; padding: 0; }
+.quantity-controls { display: flex; align-items: center; gap: 12px; margin-top: 8px; }
+.quantity-controls button { width: 44px; height: 44px; border: 1px solid var(--border); border-radius: 8px; background: var(--green-pale); color: var(--green-dark); font-size: 20px; }
+.error-text { color: #9c2d24; }
+small { display: block; line-height: 1.5; margin-top: 12px; }

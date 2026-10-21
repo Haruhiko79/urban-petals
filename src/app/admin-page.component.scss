@@ -1,0 +1,9 @@
+:host > ion-header { display: none; }
+.admin-page { max-width: 1100px; margin: 0 auto; padding: 34px 22px 70px; color: #24352b; }
+nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 44px; }
+.eyebrow { color: #6e8b62; font-size: 12px; font-weight: 700; letter-spacing: .14em; }
+h1 { font: 700 clamp(2.5rem, 7vw, 5rem)/.95 Georgia, serif; margin: 12px 0 28px; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+ion-card { margin: 0; border: 1px solid #dbe5d8; border-radius: 8px; box-shadow: none; }
+.stats p { margin: 0 0 15px; color: #6e8b62; }
+.stats strong { font: 700 2.6rem Georgia, serif; }

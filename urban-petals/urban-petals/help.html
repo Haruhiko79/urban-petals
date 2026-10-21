@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Urban Petals – Help Center</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/help.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <script src="js/nav 2.js" defer></script>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-left">
+    <a href="index.html" class="logo-link" title="Urban Petals Home">
+      <div class="logo-circle">
+        <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="40" cy="40" r="37" fill="none" stroke="#2e5f2e" stroke-width="1.5"/>
+          <circle cx="40" cy="40" r="30" fill="none" stroke="#2e5f2e" stroke-width="0.8" stroke-dasharray="3 3"/>
+          <text x="40" y="16" text-anchor="middle" font-size="6.5" fill="#2e5f2e" font-family="Lato,sans-serif" font-weight="700" letter-spacing="2">URBAN</text>
+          <g transform="translate(40,40)">
+            <ellipse rx="3.5" ry="8" fill="#8fbc6a" transform="rotate(0) translate(0,-11)"/>
+            <ellipse rx="3.5" ry="8" fill="#8fbc6a" transform="rotate(60) translate(0,-11)"/>
+            <ellipse rx="3.5" ry="8" fill="#8fbc6a" transform="rotate(120) translate(0,-11)"/>
+            <ellipse rx="3.5" ry="8" fill="#8fbc6a" transform="rotate(180) translate(0,-11)"/>
+            <ellipse rx="3.5" ry="8" fill="#8fbc6a" transform="rotate(240) translate(0,-11)"/>
+            <ellipse rx="3.5" ry="8" fill="#8fbc6a" transform="rotate(300) translate(0,-11)"/>
+            <circle r="6" fill="#2e5f2e"/>
+          </g>
+          <text x="40" y="63" text-anchor="middle" font-size="6.5" fill="#2e5f2e" font-family="Lato,sans-serif" font-weight="700" letter-spacing="2">PETALS</text>
+          <text x="40" y="73" text-anchor="middle" font-size="3.5" fill="#2e5f2e" font-family="Lato,sans-serif" letter-spacing="0.8">YOUR GARDEN PARTNER</text>
+        </svg>
+      </div>
+    </a>
+    <div class="nav-pill">
+      <a href="profile.html" class="pill-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        <span>Profile</span>
+      </a>
+      <div class="pill-sep"></div>
+      <button class="pill-btn" onclick="openCartModal()">
+        <div class="cart-icon-wrap">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </div>
+        <span>Cart</span>
+      </button>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="Homepage.html">Products</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="help.html" class="active">Help</a></li>
+  </ul>
+  <div class="nav-right">
+    <div id="navAuthArea">
+      <a href="Signin.html" class="btn-signin">Sign In</a>
+      <a href="Register.html" class="btn-register">Register</a>
+    </div>
+  </div>
+  <button class="hamburger" onclick="toggleMobileMenu()"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="Homepage.html" onclick="closeMobileMenu()">Products</a>
+  <a href="about.html" onclick="closeMobileMenu()">About</a>
+  <a href="blog.html" onclick="closeMobileMenu()">Blog</a>
+  <a href="contact.html" onclick="closeMobileMenu()">Contact</a>
+  <a href="help.html" onclick="closeMobileMenu()">Help</a>
+  <div id="mobileAuthArea">
+    <a href="Signin.html" class="btn-signin">Sign In</a>
+    <a href="Register.html" class="btn-register">Register</a>
+  </div>
+</div>
+
+<main>
+
+  <!-- HERO -->
+  <div class="help-hero">
+    <span class="help-hero-tag">Help Center</span>
+    <h1>How Can We Help You?</h1>
+    <p>Search our knowledge base or browse topics below to find what you need.</p>
+    <div class="help-search-wrap">
+      <svg class="help-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" placeholder="Search for answers… e.g. 'track order', 'return policy'" id="helpSearch" oninput="filterFaq(this.value)"/>
+    </div>
+  </div>
+
+  <!-- TOPIC CARDS -->
+  <div class="topics-section">
+    <p class="section-label">Browse by Topic</p>
+    <h2 class="section-title">Popular Help Topics</h2>
+    <div class="topics-grid">
+      <a href="#orders" class="topic-card">
+        <div class="topic-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        <h3>Orders & Tracking</h3>
+        <p>Check your order status, track deliveries, and manage order history.</p>
+        <div class="topic-arrow">View articles <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+      <a href="#shipping" class="topic-card">
+        <div class="topic-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+        <h3>Shipping & Delivery</h3>
+        <p>Estimated delivery times, shipping fees, and coverage areas across the Philippines.</p>
+        <div class="topic-arrow">View articles <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+      <a href="#returns" class="topic-card">
+        <div class="topic-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg></div>
+        <h3>Returns & Refunds</h3>
+        <p>Our return policy, how to request a refund, and what qualifies for a return.</p>
+        <div class="topic-arrow">View articles <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+      <a href="#plants" class="topic-card">
+        <div class="topic-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22V12"/><path d="M12 12C12 12 7 9.5 7 5a5 5 0 0110 0c0 4.5-5 7-5 7z"/></svg></div>
+        <h3>Plant Care Tips</h3>
+        <p>Watering guides, light requirements, soil tips, and troubleshooting for your plants.</p>
+        <div class="topic-arrow">View articles <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+      <a href="#account" class="topic-card">
+        <div class="topic-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
+        <h3>Account & Profile</h3>
+        <p>Managing your account, changing your password, and updating personal details.</p>
+        <div class="topic-arrow">View articles <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+      <a href="#payments" class="topic-card">
+        <div class="topic-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+        <h3>Payments & Billing</h3>
+        <p>Accepted payment methods, billing inquiries, failed transactions, and invoices.</p>
+        <div class="topic-arrow">View articles <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq-section" id="faq">
+    <div class="faq-inner">
+      <p class="section-label">Common Questions</p>
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <div class="faq-list" id="faqList">
+
+        <div class="faq-item" data-q="how do i track my order">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            How do I track my order?
+            <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">Once your order ships, you'll receive an email with a tracking number. You can also log in to your account, go to "Order History," and click "Track" next to your order. Delivery typically takes 3–7 business days depending on your location.</div>
+        </div>
+
+        <div class="faq-item" data-q="what is your return policy">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            What is your return policy?
+            <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">We accept returns within 7 days of delivery for damaged or incorrect items. Plants that arrive in poor condition due to shipping are covered. Please contact our support team with photos and we'll arrange a replacement or full refund promptly.</div>
+        </div>
+
+        <div class="faq-item" data-q="do you ship nationwide">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Do you ship nationwide?
+            <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">Yes! We ship to all major cities and provinces in the Philippines. Shipping fees vary by location and are calculated at checkout. Free shipping is available on orders over ₱1,500 within Metro Manila.</div>
+        </div>
+
+        <div class="faq-item" data-q="how do i care for my new plant">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            How do I care for my new plant?
+            <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">Each plant comes with a care card covering watering frequency, sunlight needs, and soil tips. You can also visit our Plant Care section in the Help Center or search by plant name for detailed guides. Our team is always happy to help with specific questions.</div>
+        </div>
+
+        <div class="faq-item" data-q="what payment methods do you accept">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            What payment methods do you accept?
+            <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">We accept GCash, Maya, major credit and debit cards (Visa, Mastercard), and Cash on Delivery (COD) for eligible areas. Bank transfer is also available for orders over ₱5,000.</div>
+        </div>
+
+        <div class="faq-item" data-q="can i change or cancel my order">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Can I change or cancel my order?
+            <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">Orders can be modified or cancelled within 2 hours of placement. After that, your order may already be packed for shipment. Contact our support team as quickly as possible and we'll do our best to accommodate your request.</div>
+        </div>
+
+        <div class="faq-item" data-q="do you offer gift wrapping">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            Do you offer gift wrapping?
+            <svg class="faq-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">Yes! At checkout, select "Gift Wrapping" and you can add a personalised message card. Gift wrapping is available for a small additional fee and is done with eco-friendly kraft paper and twine.</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">
+        <div class="footer-logo-icon">
+          <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="40" cy="40" r="37" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+            <g transform="translate(40,40)">
+              <ellipse rx="3.5" ry="8" fill="#8fbc6a" transform="rotate(0) translate(0,-11)"/>
+              <ellipse rx="3.5" ry="8" fill="#8fbc6a" transform="rotate(60) translate(0,-11)"/>
+              <ellipse rx="3.5" ry="8" fill="#8fbc6a" transform="rotate(120) translate(0,-11)"/>
+              <ellipse rx="3.5" ry="8" fill="#8fbc6a" transform="rotate(180) translate(0,-11)"/>
+              <ellipse rx="3.5" ry="8" fill="#8fbc6a" transform="rotate(240) translate(0,-11)"/>
+              <ellipse rx="3.5" ry="8" fill="#8fbc6a" transform="rotate(300) translate(0,-11)"/>
+              <circle r="6" fill="rgba(255,255,255,0.9)"/>
+            </g>
+          </svg>
+        </div>
+        <div>
+          <span class="footer-brand-name">Urban Petals</span>
+          <span class="footer-brand-sub">Your Garden Partner</span>
+        </div>
+      </a>
+      <p>Bringing nature closer to home. We curate the finest plants, tools, and garden accessories for every green space — big or small.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-btn"><svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        <a href="#" class="social-btn"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Shop</h4><ul><li><a href="plants.html">Plants</a></li><li><a href="Flowers.html">Flowers</a></li><li><a href="Garden.html">Garden Tools</a></li><li><a href="Pots.html">Pots & Planters</a></li></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">Our Story</a></li><li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact Us</a></li><li><a href="#">Careers</a></li></ul></div>
+    <div class="footer-col"><h4>Help</h4><ul><li><a href="help.html">Help Center</a></li><li><a href="#">Shipping Info</a></li><li><a href="#">Returns</a></li><li><a href="#">Order Tracking</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Urban Petals. All rights reserved.</p>
+    <div class="footer-bottom-links"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div>
+  </div>
+</footer>
+
+<div class="modal-backdrop" id="cartBackdrop" onclick="closeCartModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeCartModal()">✕</button>
+    <h2 class="cart-title">Your Cart</h2>
+    <div id="cartItems"><div class="cart-empty"><p>Your cart is empty.<br><a href="Homepage.html">Browse our products</a></p></div></div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="cart-total">Total: <strong id="cartTotal">₱0</strong></div>
+      <button class="modal-btn-primary" onclick="checkout()">Proceed to Checkout →</button>
+      <button class="modal-btn-secondary" onclick="closeCartModal()">Continue Shopping</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  }
+  function filterFaq(query) {
+    const q = query.toLowerCase();
+    document.querySelectorAll('.faq-item').forEach(item => {
+      const text = item.dataset.q + ' ' + item.querySelector('.faq-answer').textContent.toLowerCase();
+      item.style.display = text.includes(q) ? '' : 'none';
+    });
+  }
+</script>
+</body>
+</html>

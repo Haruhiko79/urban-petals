@@ -1,0 +1,181 @@
+/* ──────────────────────────────────────────
+   SHARED STYLES  –  Urban Petals Admin
+────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --sidebar-w: 110px;
+  --topbar-h: 64px;
+  --bg: #eef5ee;
+  --sidebar-bg: #ffffff;
+  --text-primary: #2d3a2e;
+  --text-muted: #8a9a8b;
+  --accent: #4caf78;
+  --radius: 18px;
+  --shadow: 0 4px 24px rgba(0,0,0,.07);
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  display: flex;
+  overflow: hidden;
+}
+
+/* ── Full-page background leaves ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 55% 65% at 95% 48%, rgba(172,225,180,.32) 0%, transparent 68%),
+    radial-gradient(ellipse 38% 42% at 88% 82%, rgba(140,210,155,.22) 0%, transparent 62%),
+    radial-gradient(ellipse 28% 32% at 8%  14%, rgba(190,232,195,.18) 0%, transparent 58%),
+    radial-gradient(ellipse 22% 28% at 52% 92%, rgba(160,218,168,.15) 0%, transparent 58%),
+    radial-gradient(ellipse 18% 22% at 30% 5%,  rgba(180,228,182,.13) 0%, transparent 55%);
+  pointer-events: none;
+  z-index: 0;
+}
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 900'%3E%3Cellipse cx='1340' cy='280' rx='280' ry='400' fill='%23b8dfc0' opacity='0.20' transform='rotate(-22 1340 280)'/%3E%3Cellipse cx='1180' cy='650' rx='190' ry='290' fill='%23a5d6a7' opacity='0.16' transform='rotate(14 1180 650)'/%3E%3Cellipse cx='180' cy='780' rx='170' ry='250' fill='%23c8e6c9' opacity='0.15' transform='rotate(-8 180 780)'/%3E%3Cellipse cx='720' cy='840' rx='130' ry='190' fill='%23b2dfdb' opacity='0.13' transform='rotate(22 720 840)'/%3E%3Cellipse cx='60' cy='180' rx='110' ry='170' fill='%23c8e6c9' opacity='0.12' transform='rotate(28 60 180)'/%3E%3Cellipse cx='600' cy='60' rx='90' ry='140' fill='%23a8d8b0' opacity='0.11' transform='rotate(-15 600 60)'/%3E%3C/svg%3E") no-repeat center/cover;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: var(--sidebar-w);
+  height: 100vh;
+  background: var(--sidebar-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 0 20px;
+  position: fixed;
+  left: 0; top: 0; bottom: 0;
+  z-index: 100;
+  box-shadow: 2px 0 16px rgba(0,0,0,.06);
+  flex-shrink: 0;
+}
+
+.logo-wrap {
+  width: 68px; height: 68px;
+  border-radius: 50%;
+  border: 2.5px solid #4caf78;
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  background: #fff;
+  margin-bottom: 22px;
+  flex-shrink: 0;
+}
+.logo-fallback { width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; }
+.logo-fallback svg { width: 64px; height: 64px; }
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  padding: 0 8px;
+  flex: 1;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 10px 6px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 10.5px;
+  font-weight: 600;
+  transition: all .18s;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.nav-item:hover  { background: #f0faf3; color: var(--accent); }
+.nav-item.active { background: #e3f5e8; color: var(--accent); }
+.nav-icon { font-size: 20px; line-height: 1; }
+
+.power-btn {
+  background: none; border: none;
+  cursor: pointer; font-size: 20px;
+  color: var(--text-muted);
+  padding: 8px; margin-top: 4px;
+  transition: color .2s;
+}
+.power-btn:hover { color: #e53935; }
+
+/* ── MAIN ── */
+.main {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+}
+
+/* ── TOPBAR ── */
+.topbar {
+  height: var(--topbar-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+  gap: 12px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.search-bar {
+  display: flex; align-items: center; gap: 8px;
+  background: #fff;
+  border: 1.5px solid #ddeedd;
+  border-radius: 28px;
+  padding: 8px 20px;
+  min-width: 240px;
+  box-shadow: var(--shadow);
+}
+.search-bar input {
+  border: none; outline: none;
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px; color: var(--text-primary);
+  background: transparent; width: 180px;
+}
+.search-icon { color: var(--text-muted); font-size: 14px; }
+
+.topbar-actions {
+  position: absolute; right: 24px;
+  display: flex; gap: 8px;
+}
+.icon-btn {
+  background: #fff;
+  border: 1.5px solid #ddeedd;
+  border-radius: 50%;
+  width: 38px; height: 38px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: background .18s;
+  position: relative;
+}
+.icon-btn:hover { background: #e8f5eb; }
+.notif-dot {
+  position: absolute; top: 3px; right: 3px;
+  width: 7px; height: 7px;
+  background: #e53935; border-radius: 50%;
+  border: 1.5px solid #fff;
+}

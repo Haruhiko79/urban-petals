@@ -1,0 +1,4 @@
+:host { display: block; flex-shrink: 0; }
+ion-toolbar { --min-height: 60px; --padding-start: 12px; --padding-end: 16px; }
+.brand { display: inline-flex; align-items: center; gap: 9px; min-height: 48px; color: var(--green-dark); text-decoration: none; font: 700 19px Georgia, serif; }
+.brand span { font-size: 28px; }

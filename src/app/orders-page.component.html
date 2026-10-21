@@ -1,0 +1,26 @@
+<app-site-header [back]="true"></app-site-header>
+<ion-content>
+  <main class="orders-page">
+    <div class="page-heading"><div><p class="eyebrow">YOUR GROWING COLLECTION</p><h1>My orders</h1></div><ion-button fill="outline" (click)="load()" [disabled]="loading()">Refresh</ion-button></div>
+    <p>Follow your purchases, delivery details and order status. All amounts are in Philippine pesos (PHP).</p>
+    @if (loading()) { <p class="notice" role="status">Loading your orders…</p> }
+    @if (error()) { <p class="error-notice" role="alert">{{ error() }}</p> }
+    @if (auth.profile()) {
+      @for (order of orders(); track order.id) {
+        <article class="order-card">
+          <div class="order-heading"><h2>{{ order.id }}</h2><span class="status">{{ order.status }}</span></div>
+          <p class="order-date">{{ order.createdAt | date:'medium' }}</p>
+          <ul class="order-items">
+            @for (item of order.items; track $index) {
+              <li><div><strong>{{ item.name }}</strong><span>{{ item.qty }} × {{ item.price | currency:'PHP':'₱':'1.2-2' }}</span></div><strong>{{ item.price * item.qty | currency:'PHP':'₱':'1.2-2' }}</strong></li>
+            }
+          </ul>
+          <div class="order-total"><span>Order total</span><strong>{{ order.total | currency:'PHP':'₱':'1.2-2' }}</strong></div>
+          <details><summary>Delivery & payment</summary><p>{{ order.address }}</p><p>{{ order.payment }}</p></details>
+        </article>
+      } @empty { @if (!loading() && !error()) { <section class="empty-orders"><h2>Your first order starts here.</h2><p>Choose something green for your space. Your confirmed orders will appear here.</p><ion-button routerLink="/tabs/tab2">Explore the collection</ion-button></section> } }
+    } @else if (!loading()) {
+      <section class="empty-orders"><h2>Keep track of every order.</h2><p>Sign in to see your purchases and delivery status.</p><ion-button routerLink="/signin" [queryParams]="{returnTo: 'orders'}">Sign in</ion-button></section>
+    }
+  </main>
+</ion-content>

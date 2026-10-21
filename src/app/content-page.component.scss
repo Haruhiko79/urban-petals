@@ -1,0 +1,9 @@
+:host { display: block; }
+.content-page { max-width: 980px; margin: 0 auto; padding: 48px 22px 80px; color: #24352b; }
+.eyebrow { color: #6e8b62; font-size: 12px; font-weight: 700; letter-spacing: .14em; }
+h1 { font: 700 clamp(2.5rem, 7vw, 5.5rem)/.95 Georgia, serif; margin: 12px 0 20px; }
+.lead { max-width: 640px; font-size: 18px; line-height: 1.6; }
+.content-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); margin: 36px 0; }
+ion-card { margin: 0; border-radius: 8px; box-shadow: none; border: 1px solid #dbe5d8; }
+h2 { font: 700 1.35rem Georgia, serif; }
+p { line-height: 1.6; }

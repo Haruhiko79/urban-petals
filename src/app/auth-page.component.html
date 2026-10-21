@@ -1,0 +1,21 @@
+<app-site-header [back]="true"></app-site-header>
+<ion-content>
+  <main class="auth-page">
+    <p class="eyebrow">YOUR URBAN PETALS ACCOUNT</p>
+    <h1>{{ register ? 'Start your garden journey.' : 'Welcome back.' }}</h1>
+    <p>{{ register ? 'Save your profile and follow every order from your growing space.' : 'Sign in to manage your profile and orders.' }}</p>
+    @if (error) { <p role="alert" class="error-notice">{{ error }}</p> }
+    <form #authForm="ngForm" (ngSubmit)="authForm.valid && submit()" [attr.aria-busy]="busy">
+      @if (register) {
+        <ion-input [(ngModel)]="name" name="name" label="Full name" labelPlacement="stacked" autocomplete="name" maxlength="100" required></ion-input>
+        <ion-input [(ngModel)]="phone" name="phone" type="tel" label="Phone number" labelPlacement="stacked" autocomplete="tel" pattern="[+0-9 ()-]{7,40}" maxlength="40" required></ion-input>
+      }
+      <ion-input [(ngModel)]="email" name="email" type="email" email label="Email address" labelPlacement="stacked" autocomplete="email" maxlength="190" required></ion-input>
+      <ion-input [(ngModel)]="password" name="password" type="password" label="Password" labelPlacement="stacked" [autocomplete]="register ? 'new-password' : 'current-password'" minlength="8" maxlength="72" required></ion-input>
+      @if (register) { <small>Use at least 8 characters. Choose a password you do not use elsewhere.</small> }
+      <ion-button type="submit" expand="block" [disabled]="authForm.invalid || busy">{{ busy ? 'Please wait…' : register ? 'Create account' : 'Sign in' }}</ion-button>
+    </form>
+    <a [routerLink]="register ? '/signin' : '/register'" queryParamsHandling="preserve">{{ register ? 'Already have an account? Sign in' : 'New here? Create an account' }}</a>
+    <ion-button fill="clear" routerLink="/tabs/tab2">Continue shopping</ion-button>
+  </main>
+</ion-content>

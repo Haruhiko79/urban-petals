@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Urban Petals – Dashboard</title>
+  <link rel="stylesheet" href="css/shared.css"/>
+  <link rel="stylesheet" href="css/dashboard.css"/>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="logo-wrap">
+      <div class="logo-fallback">
+        <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="40" cy="40" r="38" fill="#e8f5e9" stroke="#4caf50" stroke-width="3"/>
+          <circle cx="40" cy="40" r="28" fill="none" stroke="#2e7d32" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <text x="40" y="30" text-anchor="middle" font-size="7" font-weight="800" fill="#2e7d32" font-family="sans-serif">URBAN</text>
+          <text x="40" y="40" text-anchor="middle" font-size="9" font-weight="800" fill="#1b5e20" font-family="sans-serif">&#x1F33F;</text>
+          <text x="40" y="52" text-anchor="middle" font-size="7" font-weight="800" fill="#2e7d32" font-family="sans-serif">PETALS</text>
+        </svg>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="dashboard.html" class="nav-item active">
+        <span class="nav-icon">&#9783;</span>
+        <span class="nav-label">Dashboard</span>
+      </a>
+      <a href="orders.html" class="nav-item">
+        <span class="nav-icon">&#128722;</span>
+        <span class="nav-label">Orders</span>
+      </a>
+      <a href="products.html" class="nav-item">
+        <span class="nav-icon">&#127873;</span>
+        <span class="nav-label">Products</span>
+      </a>
+      <a href="accounts.html" class="nav-item">
+        <span class="nav-icon">&#128101;</span>
+        <span class="nav-label">Accounts</span>
+      </a>
+    </nav>
+    <button class="power-btn">&#9211;</button>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="search-bar">
+        <span class="search-icon">&#128269;</span>
+        <input type="text" placeholder="Search"/>
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-btn">&#128172;</button>
+        <button class="icon-btn" id="bellBtn">&#128276;<span class="notif-dot" id="notifDot" style="display:none"></span></button>
+        <button class="icon-btn">&#128100;</button>
+      </div>
+    </header>
+
+    <div class="status-bar">
+      <span class="status-dot" id="statusDot"></span>
+      <span id="statusText">Connecting...</span>
+      <span class="last-updated" id="lastUpdated"></span>
+    </div>
+
+    <section class="cards-section">
+      <div class="stat-card delivered" id="card-delivered">
+        <div class="card-header">
+          <p class="card-title">Delivered Orders</p>
+          <span class="card-icon-top">&#128666;</span>
+        </div>
+        <p class="card-number loading" id="num-delivered">&#8212;</p>
+        <p class="card-footer">&#8593; Total fulfilled</p>
+        <div class="card-shimmer"></div>
+      </div>
+      <div class="stat-card transit" id="card-transit">
+        <div class="card-header">
+          <p class="card-title">In Transit Orders</p>
+          <span class="card-icon-top">&#128667;</span>
+        </div>
+        <p class="card-number loading" id="num-transit">&#8212;</p>
+        <p class="card-footer">&#8599; On the way</p>
+        <div class="card-shimmer"></div>
+      </div>
+      <div class="stat-card new-orders" id="card-new">
+        <div class="card-header">
+          <p class="card-title">New Orders</p>
+          <span class="card-icon-top">&#128722;</span>
+        </div>
+        <p class="card-number loading" id="num-new">&#8212;</p>
+        <p class="card-footer">&#8593; Needs processing</p>
+        <div class="card-shimmer"></div>
+      </div>
+      <div class="stat-card cancelled" id="card-cancelled">
+        <div class="card-header">
+          <p class="card-title">Cancelled / Rejected Orders</p>
+          <span class="card-icon-top">&#128188;</span>
+        </div>
+        <p class="card-number loading" id="num-cancelled">&#8212;</p>
+        <p class="card-footer">&#8595; Requires review</p>
+        <div class="card-shimmer"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/api-client.js"></script>
+  <script src="js/admin-auth.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

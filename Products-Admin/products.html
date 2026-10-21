@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Urban Petals – Products</title>
+  <link rel="stylesheet" href="shared.css"/>
+  <link rel="stylesheet" href="products.css"/>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="logo-wrap">
+      <div class="logo-fallback">
+        <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="40" cy="40" r="38" fill="#e8f5e9" stroke="#4caf50" stroke-width="3"/>
+          <circle cx="40" cy="40" r="28" fill="none" stroke="#2e7d32" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <text x="40" y="30" text-anchor="middle" font-size="7" font-weight="800" fill="#2e7d32" font-family="sans-serif">URBAN</text>
+          <text x="40" y="40" text-anchor="middle" font-size="9" font-weight="800" fill="#1b5e20" font-family="sans-serif">&#x1F33F;</text>
+          <text x="40" y="52" text-anchor="middle" font-size="7" font-weight="800" fill="#2e7d32" font-family="sans-serif">PETALS</text>
+        </svg>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="dashboard.html" class="nav-item">
+        <span class="nav-icon">&#9783;</span>
+        <span class="nav-label">Dashboard</span>
+      </a>
+      <a href="orders.html" class="nav-item">
+        <span class="nav-icon">&#128722;</span>
+        <span class="nav-label">Orders</span>
+      </a>
+      <a href="products.html" class="nav-item active">
+        <span class="nav-icon">&#127873;</span>
+        <span class="nav-label">Products</span>
+      </a>
+      <a href="accounts.html" class="nav-item">
+        <span class="nav-icon">&#128101;</span>
+        <span class="nav-label">Accounts</span>
+      </a>
+    </nav>
+    <button class="power-btn">&#9211;</button>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="search-bar">
+        <span class="search-icon">&#128269;</span>
+        <input type="text" placeholder="Search"/>
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-btn">&#128172;</button>
+        <button class="icon-btn">&#128276;</button>
+        <button class="icon-btn">&#128100;</button>
+      </div>
+    </header>
+
+    <section class="products-section">
+      <h2 class="page-title">Stock In</h2>
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <select class="select-btn"><option>Select</option></select>
+          <div class="search-item">
+            <span class="search-icon">&#128269;</span>
+            <input type="text" placeholder="Search the item by name or item code" id="searchInput"/>
+          </div>
+        </div>
+        <div class="toolbar-right">
+          <button class="btn-add" id="addItemBtn">+ Add Item</button>
+          <button class="btn-delete" id="deleteBtn">Delete &#128465;</button>
+        </div>
+      </div>
+      <div class="table-wrapper">
+        <table class="products-table" id="productsTable">
+          <thead>
+            <tr>
+              <th><input type="checkbox" id="selectAll"/></th>
+              <th>No.</th><th>Date</th><th>Item Code</th>
+              <th>Name</th><th>Category</th><th>Quantity</th><th>Price</th><th>Edit</th>
+            </tr>
+          </thead>
+          <tbody id="productsBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <h3>Add New Item</h3>
+      <div class="modal-fields">
+        <input type="text" placeholder="Item Code" id="newCode"/>
+        <input type="text" placeholder="Name" id="newName"/>
+        <input type="text" placeholder="Category" id="newCategory"/>
+        <input type="number" placeholder="Quantity" id="newQty"/>
+        <input type="text" placeholder="Price (e.g. ₱100)" id="newPrice"/>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-cancel" id="cancelModal">Cancel</button>
+        <button class="btn-add" id="confirmAdd">Add</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="products.js"></script>
+</body>
+</html>

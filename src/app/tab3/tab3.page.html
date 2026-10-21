@@ -1,0 +1,66 @@
+<app-site-header></app-site-header>
+<ion-content>
+  @if (shop.preview) { <p class="notice">Ordering will be available when online services are connected.</p> }
+  @if (shop.storageUnavailable()) { <p class="notice" role="status">Your bag cannot be saved on this device. Keep the app open until checkout finishes.</p> }
+  @if (order; as receipt) {
+    <section class="confirmation" role="status">
+      <p class="eyebrow">ORDER RECEIVED</p><h1>Good things<br />are growing.</h1>
+      <p>Order <strong>{{ receipt.id }}</strong> is pending confirmation.</p>
+      <p>Pay {{ receipt.total | currency:'PHP':'₱':'1.2-2' }} on delivery. No online payment was taken.</p>
+      <p>Delivery to {{ receipt.address }}</p>
+      <ion-button routerLink="/orders">View my orders</ion-button>
+      <ion-button fill="outline" routerLink="/tabs/tab2">Continue shopping</ion-button>
+    </section>
+  } @else {
+    @if (shop.error()) { <div class="error-notice" role="alert">{{ shop.error() }} <ion-button fill="clear" (click)="shop.loadProducts()">Retry</ion-button></div> }
+    @if (shop.loading()) { <p class="notice" role="status">Updating prices and availability…</p> }
+    @if (shop.unavailableItems() && !shop.loading() && !shop.error()) {
+      <div class="notice">Some items are no longer available. <ion-button fill="clear" (click)="shop.removeUnavailable()">Remove unavailable items</ion-button></div>
+    }
+    @if (shop.count()) {
+      <section class="bag-layout">
+        <div><p class="eyebrow">YOUR SELECTION</p><h1>Your bag</h1>
+          @for (product of shop.cart(); track product.id) {
+            <ion-item lines="full">
+              <img slot="start" [src]="product.image" [alt]="product.name" (error)="$any($event.target).src = 'assets/icon/favicon.png'" />
+              <ion-label><h2>{{ product.name }}</h2><p>{{ product.price | currency:'PHP':'₱':'1.2-2' }} each</p>
+                <div class="quantity-controls">
+                  <button type="button" [disabled]="busy" (click)="shop.changeQuantity(product.id, -1)" [attr.aria-label]="'Decrease ' + product.name">−</button>
+                  <span [attr.aria-label]="'Quantity ' + product.qty">{{ product.qty }}</span>
+                  <button type="button" [disabled]="busy || (product.stock !== null && product.qty >= product.stock) || product.qty >= 99" (click)="shop.changeQuantity(product.id, 1)" [attr.aria-label]="'Increase ' + product.name">+</button>
+                </div>
+                @if (product.stock !== null && product.qty > product.stock) { <p class="error-text">Only {{ product.stock }} available. Reduce the quantity to continue.</p> }
+              </ion-label>
+              <ion-button slot="end" fill="clear" [disabled]="busy" [attr.aria-label]="'Remove ' + product.name" (click)="shop.removeFromCart(product.id)">Remove</ion-button>
+            </ion-item>
+          }
+        </div>
+        <aside>
+          <h2>Order summary</h2>
+          <div class="total"><span>Items total (PHP)</span><strong>{{ shop.total() | currency:'PHP':'₱':'1.2-2' }}</strong></div>
+          <h2>Delivery details</h2>
+          @if (error) { <p class="error-notice" role="alert">{{ error }}</p><ion-button fill="clear" [disabled]="busy" (click)="shop.loadProducts()">Refresh bag</ion-button> }
+          @if (auth.profile()) {
+            <form #checkoutForm="ngForm" (ngSubmit)="checkoutForm.valid && checkout()" [attr.aria-busy]="busy">
+              <fieldset [disabled]="busy">
+                <ion-input [(ngModel)]="customerName" [disabled]="busy" name="customerName" label="Recipient name" labelPlacement="stacked" autocomplete="name" maxlength="180" required></ion-input>
+                <ion-input [(ngModel)]="phone" [disabled]="busy" name="phone" label="Phone number" labelPlacement="stacked" type="tel" autocomplete="tel" pattern="[+0-9 ()-]{7,40}" maxlength="40" required></ion-input>
+                <ion-input [(ngModel)]="address" [disabled]="busy" name="address" label="Complete delivery address" labelPlacement="stacked" autocomplete="street-address" minlength="10" maxlength="1000" placeholder="House, street, barangay, city, province, ZIP" required></ion-input>
+              </fieldset>
+              <p class="notice">Cash on delivery · Pay when your order arrives.</p>
+              <div class="total"><span>Delivery</span><strong>Included</strong></div>
+              <div class="total"><span>Total</span><strong>{{ shop.total() | currency:'PHP':'₱':'1.2-2' }}</strong></div>
+              <ion-button type="submit" expand="block" [disabled]="checkoutForm.invalid || busy || !shop.canCheckout()">{{ busy ? 'Placing order…' : 'Place order · Pay on delivery' }}</ion-button>
+              <small>Your order will be saved as pending for the store to confirm.</small>
+            </form>
+          } @else {
+            <p>Sign in to place your order and follow its progress.</p>
+            <ion-button routerLink="/signin" [queryParams]="{returnTo: 'checkout'}">Sign in to checkout</ion-button>
+          }
+        </aside>
+      </section>
+    } @else if (!shop.loading() && !shop.error()) {
+      <section class="empty-bag"><p class="eyebrow">ROOM FOR SOMETHING GREEN</p><h1>Your next<br /><em>little joy.</em></h1><p>Find a plant, pot or tool to start your next growing project.</p><ion-button routerLink="/tabs/tab2">Explore the collection</ion-button></section>
+    }
+  }
+</ion-content>
