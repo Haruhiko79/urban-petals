@@ -1,0 +1,1 @@
+{"nodes": [{"id": "$graphify-root$_urban_petals_urban_petals_api_install_php", "label": "install.php", "file_type": "code", "source_file": "urban-petals/urban-petals/api/install.php", "source_location": "L1"}], "edges": [], "raw_calls": [], "php_type_table": {"path": "$graphify-root$/urban-petals/urban-petals/api/install.php", "table": {"pdo": "PDO"}}}
