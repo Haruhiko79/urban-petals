@@ -1,0 +1,1 @@
+import {ae as E}from'./main-5CNHRCGP.js';var e=class extends E{async show(o){}async hide(o){}};export{e as SplashScreenWeb};

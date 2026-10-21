@@ -49,7 +49,7 @@ export const CATALOG_PREVIEW: Product[] = [
     "group": "Plants",
     "category": "Pothos",
     "price": 850,
-    "image": "https://nouveauraw.com/wp-content/uploads/2020/01/Pothos-Golden-Pothos-plant-800-great-coloring.png",
+    "image": "https://images.unsplash.com/photo-1614594975525-e45190c55d0b?w=900&q=80",
     "description": "Easy-growing trailing foliage for bright indoor spaces.",
     "stock": null
   },

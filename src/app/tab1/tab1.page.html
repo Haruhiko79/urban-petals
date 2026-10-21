@@ -1,4 +1,4 @@
-<app-site-header></app-site-header>
+﻿<app-site-header></app-site-header>
 <ion-content>
   <main class="homepage">
     <section class="homepage-hero">
@@ -9,9 +9,9 @@
           <div class="slide-copy"><span>{{ collectionSlides[currentSlide()].tag }}</span><h2>{{ collectionSlides[currentSlide()].title }}</h2><p>{{ collectionSlides[currentSlide()].description }}</p><a routerLink="/tabs/tab2" [queryParams]="{ category: collectionSlides[currentSlide()].category }">Shop collection →</a></div>
         </div>
         <div class="carousel-controls">
-          <button type="button" (click)="previousSlide()" aria-label="Previous collection">←</button>
+          <button type="button" (click)="previousSlide()" aria-label="Previous collection">‹</button>
           <div class="carousel-dots">@for (slide of collectionSlides; track slide.title; let index = $index) { <button type="button" [class.active]="index === currentSlide()" [attr.aria-current]="index === currentSlide() ? 'true' : null" (click)="goToSlide(index)" [attr.aria-label]="'Show ' + slide.title"></button> }</div>
-          <button type="button" (click)="nextSlide()" aria-label="Next collection">→</button>
+          <button type="button" (click)="nextSlide()" aria-label="Next collection">›</button>
           <button class="rotation-control" type="button" (click)="toggleRotation()" [attr.aria-label]="paused() ? 'Play carousel' : 'Pause carousel'">{{ paused() ? 'Play' : 'Pause' }}</button>
         </div>
       </section>
@@ -25,10 +25,10 @@
       <p class="bag-feedback" role="status">{{ shop.feedback() }}</p>
       <div class="product-scroller">
         @for (product of featuredProducts; track product.id) {
-          <article class="product-card"><div class="product-image"><img [src]="product.image" [alt]="product.name" loading="lazy" (error)="$any($event.target).src = 'assets/icon/favicon.png'" /></div><div class="product-info"><p>{{ product.category }}</p><h3>{{ product.name }}</h3><div class="product-row"><strong>{{ product.price | currency:'PHP':'₱':'1.2-2' }}</strong><button type="button" (click)="add(product)" [disabled]="product.stock === 0" [attr.aria-label]="product.stock === 0 ? product.name + ' is sold out' : 'Add ' + product.name + ' to bag'">{{ product.stock === 0 ? '–' : '+' }}</button></div></div></article>
+          <article class="product-card" (click)="openDetails(product)" style="cursor:pointer"><div class="product-image"><img [src]="product.image" [alt]="product.name" loading="lazy" (error)="$any($event.target).src = 'assets/icon/favicon.png'" /></div><div class="product-info"><p>{{ product.category }}</p><h3>{{ product.name }}</h3><div class="product-row"><strong>{{ product.price | currency:'PHP':'₱':'1.2-2' }}</strong><button type="button" (click)="add($event, product)" [disabled]="product.stock === 0" [attr.aria-label]="product.stock === 0 ? product.name + ' is sold out' : 'Add ' + product.name + ' to bag'">{{ product.stock === 0 ? '−' : '+' }}</button></div></div></article>
         } @empty { @if (!shop.loading() && !shop.error()) { <p>New arrivals are on their way. Check back soon.</p> } }
       </div>
     </section>
-    <section class="section-block categories-section"><h2>Everything for your garden</h2><div class="category-grid">@for (category of categories; track category.name) { <a class="category-tile" routerLink="/tabs/tab2" [queryParams]="{ category: category.name }"><div><h3>{{ category.name }}</h3><p>{{ category.caption }}</p></div><b aria-hidden="true">↗</b></a> }</div></section>
+    <section class="section-block categories-section"><h2>Everything for your garden</h2><div class="category-grid">@for (category of categories; track category.name) { <a class="category-tile" routerLink="/tabs/tab2" [queryParams]="{ category: category.name }"><div><h3>{{ category.name }}</h3><p>{{ category.caption }}</p></div><b aria-hidden="true">→</b></a> }</div></section>
   </main>
 </ion-content>

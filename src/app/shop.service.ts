@@ -98,6 +98,7 @@ export class ShopService {
 
         this.products.set(mapped);
       } else if (environment.apiUrl) {
+      } else if (environment.apiUrl) {
         const { products } = await this.api.request<{ products: Product[] }>('/products');
         if (
           !Array.isArray(products) ||
@@ -123,6 +124,7 @@ export class ShopService {
       }
     } catch (error) {
       this.error.set((error as Error).message);
+      this.products.set(CATALOG_PREVIEW);
     } finally {
       this.loading.set(false);
     }

@@ -1,7 +1,7 @@
 import { Component, inject, signal, OnDestroy } from '@angular/core';
-import { IonButton, IonContent, } from '@ionic/angular';
+import { IonButton, IonContent } from '@ionic/angular';
 import { CurrencyPipe } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 import { Product, ShopService } from '../shop.service';
 import { SiteHeaderComponent } from '../site-header.component';
 
@@ -28,15 +28,21 @@ export class Tab1Page implements OnDestroy {
   readonly categories = [
     { name: 'Plants', icon: '🌿', caption: 'Indoor & outdoor varieties' },
     { name: 'Flowers', icon: '🌸', caption: 'Seasonal & year-round blooms' },
-    { name: 'Tools', icon: '🧰', caption: 'Premium gardening equipment' },
-    { name: 'Pots', icon: '🏺', caption: 'Ceramic, clay & modern styles' },
+    { name: 'Tools', icon: '🛠️', caption: 'Premium gardening equipment' },
+    { name: 'Pots', icon: '🪴', caption: 'Ceramic, clay & modern styles' },
     { name: 'Fertilizers', icon: '🌱', caption: 'Organic & synthetic blends' },
   ];
 
   readonly shop = inject(ShopService);
+  private readonly router = inject(Router);
 
-  add(product: Product): void {
+  add(event: Event, product: Product): void {
+    event.stopPropagation();
     this.shop.addToCart(product);
+  }
+
+  openDetails(product: Product): void {
+    void this.router.navigate(['/product', product.id]);
   }
 
   ionViewWillEnter(): void {
