@@ -1,1 +1,0 @@
-import {at as E}from'./main-XYFLQX3D.js';var e=class extends E{async show(o){}async hide(o){}};export{e as SplashScreenWeb};

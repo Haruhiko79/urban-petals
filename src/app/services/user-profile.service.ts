@@ -116,6 +116,18 @@ export class UserProfileService {
     if (error) throw new Error(error.message);
   }
 
+  async setSession(accessToken: string, refreshToken: string): Promise<void> {
+    if (!this.supabase.isConfigured) return;
+    const { error } = await this.supabase.client.auth.setSession({ access_token: accessToken, refresh_token: refreshToken });
+    if (error) throw new Error(error.message);
+  }
+
+  async exchangeCodeForSession(code: string): Promise<{ error: Error | null }> {
+    if (!this.supabase.isConfigured) return { error: null };
+    const { error } = await this.supabase.client.auth.exchangeCodeForSession(code);
+    return { error: error ? new Error(error.message) : null };
+  }
+
   async save(details: Pick<UserProfile, 'name' | 'phone' | 'imageUrl'>): Promise<void> {
     if (this.supabase.isConfigured) {
       const current = this.profileState();

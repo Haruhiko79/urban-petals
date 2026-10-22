@@ -1,4 +1,4 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+﻿import { computed, inject, Injectable, signal } from '@angular/core';
 import { SupabaseService } from './services/supabase.service';
 import { ApiService } from './services/api.service';
 import { environment } from '../environments/environment';
@@ -99,7 +99,7 @@ export class ShopService {
           category: item.category || 'General',
           price: Number(item.price) || 0,
           stock: item.stock !== undefined && item.stock !== null ? Number(item.stock) : Number(item.quantity ?? 50),
-          image: item.image && /^https?:\/\//.test(item.image) ? item.image : 'assets/icon/favicon.png',
+          image: item.image && /^https?:\/\//.test(item.image) ? item.image : 'assets/icon/flower-mark.svg',
           description: item.description || '',
           badge: item.badge || undefined,
         }));
@@ -126,7 +126,7 @@ export class ShopService {
         this.products.set(
           products.map(product => ({
             ...product,
-            image: /^https:\/\//.test(product.image) ? product.image : 'assets/icon/favicon.png',
+            image: /^https:\/\//.test(product.image) ? product.image : 'assets/icon/flower-mark.svg',
           }))
         );
       }
@@ -285,22 +285,33 @@ export class ShopService {
 
   async createGcashPayment(orderCode: string): Promise<GcashCheckout> {
     if (!this.supabase.isConfigured) throw new Error('GCash payment needs the online store backend.');
-    const { data, error } = await this.supabase.client.functions
-      .invoke<GcashCheckout>('create-gcash-payment', { body: { orderCode: orderCode } })
-      .then(result => ({ data: result.data as GcashCheckout | null, error: result.error }));
-    if (error) throw new Error(error.message || 'Could not start the GCash payment.');
-    if (!data || (typeof data.checkoutUrl !== 'string' && data.checkoutUrl !== null)) throw new Error('Unexpected response from the payment gateway.');
+    const data = await this.invokeFunction<GcashCheckout>('create-gcash-payment', orderCode, 'Could not start the GCash payment.');
+    if (typeof data.checkoutUrl !== 'string' && data.checkoutUrl !== null) throw new Error('Unexpected response from the payment gateway.');
     return data;
   }
 
   async checkGcashPayment(orderCode: string): Promise<{ status: string; paymentStatus: string }> {
     if (!this.supabase.isConfigured) throw new Error('GCash payments need the online store backend.');
-    const { data, error } = await this.supabase.client.functions
-      .invoke<{ status: string; paymentStatus: string }>('check-payment', { body: { orderCode: orderCode } })
-      .then(result => ({ data: result.data as { status: string; paymentStatus: string } | null, error: result.error }));
-    if (error) throw new Error(error.message || 'Could not check the payment status.');
-    if (!data || typeof data.status !== 'string') throw new Error('Unexpected response from the payment gateway.');
+    const data = await this.invokeFunction<{ status: string; paymentStatus: string }>('check-payment', orderCode, 'Could not check the payment status.');
+    if (typeof data.status !== 'string') throw new Error('Unexpected response from the payment gateway.');
     return data;
+  }
+
+  private async invokeFunction<T>(name: string, orderCode: string, fallback: string): Promise<T> {
+    const response = await this.supabase.client.functions.invoke<T>(name, { body: { orderCode: orderCode } });
+    if (response.error) {
+      let detail = '';
+      const context = (response.error as { context?: { json?: unknown } }).context;
+      if (typeof context?.json === 'function') {
+        try {
+          const body = await (context as unknown as { json: () => Promise<{ error?: string }> }).json();
+          detail = body?.error ?? '';
+        } catch { detail = ''; }
+      }
+      throw new Error(detail || response.error.message || fallback);
+    }
+    if (!response.data) throw new Error(fallback);
+    return response.data as T;
   }
 
   private restoreAttempt(): { fingerprint: string; key: string } | null {

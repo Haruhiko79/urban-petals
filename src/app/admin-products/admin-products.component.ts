@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+﻿import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonButton, IonContent, IonHeader, IonInput, IonTitle, IonToolbar } from '@ionic/angular';
@@ -47,7 +47,7 @@ export class AdminProductsComponent implements OnInit {
   });
 
   imageFor(product: any): string {
-    return product.image && /^https?:\/\//.test(product.image) ? product.image : 'assets/icon/favicon.png';
+    return product.image && /^https?:\/\//.test(product.image) ? product.image : 'assets/icon/flower-mark.svg';
   }
 
   async ngOnInit(): Promise<void> {
@@ -161,9 +161,9 @@ export class AdminProductsComponent implements OnInit {
         row.id === product.id ? { ...row, is_active: !product.is_active } : row
       );
       this.products.set(updated);
-      this.message = `${product.name} ${product.is_active ? 'deactivated — it is now hidden from the shop.' : 'reactivated in the shop.'}`;
+      this.message = `${product.name} ${product.is_active ? 'deactivated â€” it is now hidden from the shop.' : 'reactivated in the shop.'}`;
     } catch (e) {
-      this.error = `Could not change “${product.name}”: ${(e as Error).message}`;
+      this.error = `Could not change â€œ${product.name}â€: ${(e as Error).message}`;
     } finally {
       this.busy = false;
     }

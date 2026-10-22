@@ -7,7 +7,10 @@ const supabaseUrl = Deno.env.get('SUPABASE_URL');
 const anonKey = Deno.env.get('SUPABASE_ANON_KEY');
 const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
 const paymongoSecret = Deno.env.get('PAYMONGO_SECRET_KEY');
-const CALLBACK_SCHEME = 'com.urbanpetals.app://payment/callback';
+// The customer finishes on the GitHub Pages landing page (PayMongo rejects
+// custom schemes; Supabase Edge Functions cannot serve HTML), which routes
+// the app back via com.urbanpetals.app://payment/callback.
+const CALLBACK_BASE = 'https://haruhiko79.github.io/urban-petals/payment-callback.html';
 
 const cors = {
   'Access-Control-Allow-Origin': '*',
@@ -79,8 +82,8 @@ Deno.serve(async (req) => {
           currency: 'PHP',
           type: 'gcash',
           redirect: {
-            success: `${CALLBACK_SCHEME}?status=success&order=${orderCode}`,
-            failure: `${CALLBACK_SCHEME}?status=failed&order=${orderCode}`,
+            success: `${CALLBACK_BASE}?status=success&order=${encodeURIComponent(orderCode)}`,
+            failed: `${CALLBACK_BASE}?status=failed&order=${encodeURIComponent(orderCode)}`,
           },
         },
       },

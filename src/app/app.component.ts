@@ -21,15 +21,52 @@ export class AppComponent {
 
   constructor() {
     try {
-      App.addListener('appUrlOpen', event => {
-        if (!event?.url.includes('payment/callback')) return;
-        try { localStorage.setItem('urban-petals.gcash-return', String(Date.now())); } catch { /* storage optional */ }
-        if (!this.router.url.includes('/tabs/tab3')) void this.router.navigateByUrl('/tabs/tab3');
-      });
+      App.addListener('appUrlOpen', event => this.processLink(event?.url ?? ''));
     } catch {
-      // App plugin unavailable (browser/tests) — checkout page polls instead.
+      // App plugin unavailable (browser/tests) — email confirm + checkout polling degrade gracefully.
     }
     void this.initializeApp();
+  }
+
+  private processLink(url: string): void {
+    if (url.includes('payment/callback')) {
+      try { localStorage.setItem('urban-petals.gcash-return', String(Date.now())); } catch { /* storage optional */ }
+      if (!this.router.url.includes('/tabs/tab3')) void this.router.navigateByUrl('/tabs/tab3');
+      return;
+    }
+    if (url.includes('auth-callback')) void this.finishAuthRedirect(url).catch(() => undefined);
+  }
+
+  private async finishAuthRedirect(url: string): Promise<void> {
+    let signedIn = false;
+    let badRequest = false;
+    let parsed: URL | null = null;
+    try { parsed = new URL(url); } catch { /* not a parseable URL */ }
+    if (parsed) {
+      const query = parsed.searchParams;
+      if (query.get('error_code') || query.get('error')) badRequest = true;
+      const code = query.get('code');
+      const fragment = parsed.hash ? new URLSearchParams(parsed.hash.slice(1)) : null;
+      const accessToken = fragment?.get('access_token') ?? null;
+      const refreshToken = fragment?.get('refresh_token') ?? null;
+      const payloadError = fragment?.get('error_code') ?? fragment?.get('error');
+      if (!badRequest && payloadError) badRequest = true;
+      if (!badRequest && accessToken && refreshToken) {
+        await this.auth.setSession(accessToken, refreshToken);
+        signedIn = true;
+      } else if (!badRequest && code) {
+        const { error } = await this.auth.exchangeCodeForSession(code);
+        signedIn = !error;
+      }
+    }
+    if (signedIn) {
+      await this.auth.restore();
+      await this.router.navigateByUrl('/tabs/account', { replaceUrl: true });
+    } else {
+      // Expired links land here as "error_code=otp_expired" from Supabase.
+      const destination = badRequest ? '/signin?notice=link-expired' : '/signin';
+      await this.router.navigateByUrl(destination, { replaceUrl: true });
+    }
   }
 
   async initializeApp(): Promise<void> {

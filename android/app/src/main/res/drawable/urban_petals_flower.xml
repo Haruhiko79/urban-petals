@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Urban Petals flower mark: six petals around a seed center. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="108dp" android:height="108dp" android:viewportWidth="108" android:viewportHeight="108">
-  <path android:fillColor="#8fbc6a" android:pathData="M41,29 a13,13 0 1,0 26,0 a13,13 0 1,0 -26,0 Z"/>
-  <path android:fillColor="#8fbc6a" android:pathData="M16.3,46 a13,13 0 1,0 26,0 a13,13 0 1,0 -26,0 Z"/>
-  <path android:fillColor="#8fbc6a" android:pathData="M65.7,46 a13,13 0 1,0 26,0 a13,13 0 1,0 -26,0 Z"/>
-  <path android:fillColor="#8fbc6a" android:pathData="M25.7,75 a13,13 0 1,0 26,0 a13,13 0 1,0 -26,0 Z"/>
-  <path android:fillColor="#8fbc6a" android:pathData="M56.3,75 a13,13 0 1,0 26,0 a13,13 0 1,0 -26,0 Z"/>
-  <path android:fillColor="#2e5f2e" android:pathData="M41.5,54 a12.5,12.5 0 1,0 25,0 a12.5,12.5 0 1,0 -25,0 Z"/>
+  <group android:translateX="54" android:translateY="54" android:rotation="0">
+    <path android:fillColor="#8fbc6a" android:pathData="M0,0 A 11,19 0 1 1 0,-38 A 11,19 0 1 1 0,0 Z"/>
+  </group>
+  <group android:translateX="54" android:translateY="54" android:rotation="60">
+    <path android:fillColor="#8fbc6a" android:pathData="M0,0 A 11,19 0 1 1 0,-38 A 11,19 0 1 1 0,0 Z"/>
+  </group>
+  <group android:translateX="54" android:translateY="54" android:rotation="120">
+    <path android:fillColor="#8fbc6a" android:pathData="M0,0 A 11,19 0 1 1 0,-38 A 11,19 0 1 1 0,0 Z"/>
+  </group>
+  <group android:translateX="54" android:translateY="54" android:rotation="180">
+    <path android:fillColor="#8fbc6a" android:pathData="M0,0 A 11,19 0 1 1 0,-38 A 11,19 0 1 1 0,0 Z"/>
+  </group>
+  <group android:translateX="54" android:translateY="54" android:rotation="240">
+    <path android:fillColor="#8fbc6a" android:pathData="M0,0 A 11,19 0 1 1 0,-38 A 11,19 0 1 1 0,0 Z"/>
+  </group>
+  <group android:translateX="54" android:translateY="54" android:rotation="300">
+    <path android:fillColor="#8fbc6a" android:pathData="M0,0 A 11,19 0 1 1 0,-38 A 11,19 0 1 1 0,0 Z"/>
+  </group>
+  <path android:fillColor="#2e5f2e" android:pathData="M41,54 a13,13 0 1,0 26,0 a13,13 0 1,0 -26,0 Z"/>
 </vector>

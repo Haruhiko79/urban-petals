@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Adaptive icon foreground: flower scaled into the 66/108 safe zone. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="108dp" android:height="108dp" android:viewportWidth="108" android:viewportHeight="108">
+  <group android:translateX="54" android:translateY="54" android:rotation="0">
+    <path android:fillColor="#8fbc6a" android:pathData="M0,0 A 8.8,15.2 0 1 1 0,-30.4 A 8.8,15.2 0 1 1 0,0 Z"/>
+  </group>
+  <group android:translateX="54" android:translateY="54" android:rotation="60">
+    <path android:fillColor="#8fbc6a" android:pathData="M0,0 A 8.8,15.2 0 1 1 0,-30.4 A 8.8,15.2 0 1 1 0,0 Z"/>
+  </group>
+  <group android:translateX="54" android:translateY="54" android:rotation="120">
+    <path android:fillColor="#8fbc6a" android:pathData="M0,0 A 8.8,15.2 0 1 1 0,-30.4 A 8.8,15.2 0 1 1 0,0 Z"/>
+  </group>
+  <group android:translateX="54" android:translateY="54" android:rotation="180">
+    <path android:fillColor="#8fbc6a" android:pathData="M0,0 A 8.8,15.2 0 1 1 0,-30.4 A 8.8,15.2 0 1 1 0,0 Z"/>
+  </group>
+  <group android:translateX="54" android:translateY="54" android:rotation="240">
+    <path android:fillColor="#8fbc6a" android:pathData="M0,0 A 8.8,15.2 0 1 1 0,-30.4 A 8.8,15.2 0 1 1 0,0 Z"/>
+  </group>
+  <group android:translateX="54" android:translateY="54" android:rotation="300">
+    <path android:fillColor="#8fbc6a" android:pathData="M0,0 A 8.8,15.2 0 1 1 0,-30.4 A 8.8,15.2 0 1 1 0,0 Z"/>
+  </group>
+  <path android:fillColor="#2e5f2e" android:pathData="M43.6,54 a10.4,10.4 0 1,0 20.8,0 a10.4,10.4 0 1,0 -20.8,0 Z"/>
+</vector>

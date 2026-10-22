@@ -1,25 +1,25 @@
-<app-site-header></app-site-header>
+﻿<app-site-header></app-site-header>
 <ion-content>
   <main class="account-page">
-    @if (loading) { <p class="notice" role="status">Loading your account…</p> }
+    @if (loading) { <p class="notice" role="status">Loading your accountâ€¦</p> }
     @if (error) { <p class="error-notice" role="alert">{{ error }}</p><ion-button fill="clear" [disabled]="busy || loading" (click)="ionViewWillEnter()">Retry</ion-button> }
     @if (message) { <p class="notice" role="status">{{ message }}</p> }
     @if (auth.profile(); as user) {
       @if (auth.profileError()) { <p class="error-notice" role="alert">{{ auth.profileError() }}</p> }
-      <div class="profile-heading"><img class="avatar" [src]="imageUrl || 'assets/icon/favicon.png'" alt="Your profile photo" /><div><h1>{{ user.name }}</h1><p>{{ user.email }}</p></div></div>
+      <div class="profile-heading"><img class="avatar" [src]="imageUrl || 'assets/icon/flower-mark.svg'" alt="Your profile photo" /><div><h1>{{ user.name }}</h1><p>{{ user.email }}</p></div></div>
       <form #profileForm="ngForm" (ngSubmit)="profileForm.valid && save()">
         <label class="photo-picker">Profile photo <input type="file" accept="image/jpeg,image/png,image/webp" [disabled]="busy || processingPhoto" (change)="choosePhoto($event)" /></label>
         <small>JPEG, PNG or WebP, up to 5 MB. Your photo is cropped to a square.</small>
         <ion-input [(ngModel)]="name" name="name" label="Full name" labelPlacement="stacked" maxlength="100" autocomplete="name" required></ion-input>
         <ion-input [(ngModel)]="phone" name="phone" label="Phone number" labelPlacement="stacked" type="tel" autocomplete="tel" pattern="[+0-9 ()-]{7,40}" maxlength="40" required></ion-input>
-        <ion-button type="submit" [disabled]="profileForm.invalid || busy || loading || processingPhoto">{{ busy ? 'Please wait…' : 'Save profile' }}</ion-button>
+        <ion-button type="submit" [disabled]="profileForm.invalid || busy || loading || processingPhoto">{{ busy ? 'Please waitâ€¦' : 'Save profile' }}</ion-button>
       </form>
       <h2>Your purchases</h2>
       <p>View order details, totals in Philippine pesos, and delivery status.</p>
       <ion-button routerLink="/orders">My orders</ion-button>
       <ion-button fill="outline" [disabled]="busy || loading" (click)="signOut()">Sign out</ion-button>
     } @else if (!loading) {
-      <img class="avatar" src="assets/icon/favicon.png" alt="Urban Petals" />
+      <img class="avatar" src="assets/icon/flower-mark.svg" alt="Urban Petals" />
       <h1>Your growing space.</h1><p>Sign in to save your profile and keep track of your orders.</p>
       <div class="account-actions"><ion-button routerLink="/signin">Sign in</ion-button><ion-button fill="outline" routerLink="/register">Create account</ion-button></div>
     }

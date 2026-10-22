@@ -5,7 +5,7 @@
       <div class="hero-intro"><p class="eyebrow">A LITTLE CLOSER TO NATURE</p><h1>A little green.<br />A happier home.</h1><p>Plants, thoughtful tools and beautiful pots for your everyday growing space.</p><div class="hero-actions"><ion-button routerLink="/tabs/tab2">Shop collection →</ion-button><ion-button fill="outline" routerLink="/about">Our story</ion-button></div></div>
       <section class="collection-carousel" aria-label="Featured collections" aria-roledescription="carousel" (mouseenter)="pause()" (focusin)="pause()" (keydown.arrowright)="nextSlide(); $event.preventDefault()" (keydown.arrowleft)="previousSlide(); $event.preventDefault()">
         <div class="carousel-slide" (pointerdown)="pointerDown($event)" (pointerup)="pointerUp($event)" (click)="slideClick($event)" (keydown.enter)="slideClick($event)" tabindex="0" role="group" [attr.aria-label]="'Collection ' + (currentSlide() + 1) + ' of ' + collectionSlides.length">
-          <img [src]="collectionSlides[currentSlide()].image" [alt]="collectionSlides[currentSlide()].title" draggable="false" (error)="$any($event.target).src = 'assets/icon/favicon.png'" />
+          <img [src]="collectionSlides[currentSlide()].image" [alt]="collectionSlides[currentSlide()].title" draggable="false" (error)="$any($event.target).src = 'assets/icon/flower-mark.svg'" />
           <div class="slide-copy"><span>{{ collectionSlides[currentSlide()].tag }}</span><h2>{{ collectionSlides[currentSlide()].title }}</h2><p>{{ collectionSlides[currentSlide()].description }}</p><a routerLink="/tabs/tab2" [queryParams]="{ category: collectionSlides[currentSlide()].category }">Shop collection →</a></div>
         </div>
         <div class="carousel-controls">
@@ -25,7 +25,7 @@
       <p class="bag-feedback" role="status">{{ shop.feedback() }}</p>
       <div class="product-scroller">
         @for (product of featuredProducts; track product.id) {
-          <article class="product-card" (click)="openDetails(product)" style="cursor:pointer"><div class="product-image"><img [src]="product.image" [alt]="product.name" loading="lazy" (error)="$any($event.target).src = 'assets/icon/favicon.png'" /></div><div class="product-info"><p>{{ product.category }}</p><h3>{{ product.name }}</h3><div class="product-row"><strong>{{ product.price | currency:'PHP':'₱':'1.2-2' }}</strong><button type="button" (click)="add($event, product)" [disabled]="product.stock === 0" [attr.aria-label]="product.stock === 0 ? product.name + ' is sold out' : 'Add ' + product.name + ' to bag'">{{ product.stock === 0 ? '−' : '+' }}</button></div></div></article>
+          <article class="product-card" (click)="openDetails(product)" style="cursor:pointer"><div class="product-image"><img [src]="product.image" [alt]="product.name" loading="lazy" (error)="$any($event.target).src = 'assets/icon/flower-mark.svg'" /></div><div class="product-info"><p>{{ product.category }}</p><h3>{{ product.name }}</h3><div class="product-row"><strong>{{ product.price | currency:'PHP':'₱':'1.2-2' }}</strong><button type="button" (click)="add($event, product)" [disabled]="product.stock === 0" [attr.aria-label]="product.stock === 0 ? product.name + ' is sold out' : 'Add ' + product.name + ' to bag'">{{ product.stock === 0 ? '−' : '+' }}</button></div></div></article>
         } @empty { @if (!shop.loading() && !shop.error()) { <p>New arrivals are on their way. Check back soon.</p> } }
       </div>
     </section>

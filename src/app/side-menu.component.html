@@ -1,4 +1,4 @@
-<ion-menu contentId="main-content" type="overlay" menuId="main-menu">
+﻿<ion-menu contentId="main-content" type="overlay" menuId="main-menu">
   <ion-header>
     <ion-toolbar>
       <ion-title>Urban Petals</ion-title>
@@ -14,9 +14,9 @@
     <section class="profile" aria-label="Account profile">
       <ion-avatar>
         @if (profile()?.imageUrl) {
-          <img [src]="profile()!.imageUrl" alt="Profile photo" (error)="$any($event.target).src = 'assets/icon/favicon.png'" />
+          <img [src]="profile()!.imageUrl" alt="Profile photo" (error)="$any($event.target).src = 'assets/icon/flower-mark.svg'" />
         } @else {
-          <img src="assets/icon/favicon.png" alt="Urban Petals" />
+          <img src="assets/icon/flower-mark.svg" alt="Urban Petals" />
         }
       </ion-avatar>
       <div>

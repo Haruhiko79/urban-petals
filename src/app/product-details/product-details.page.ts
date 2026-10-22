@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
+﻿import { Component, computed, effect, inject, signal } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { IonButton, IonContent } from '@ionic/angular';
@@ -45,9 +45,9 @@ export class ProductDetailsPage {
     const p = this.product();
     if (!p) return [];
     return [
-      { icon: '🌿', title: 'Carefully selected', text: 'Hand-picked and checked before it leaves us.' },
-      { icon: '📦', title: 'Packed with care', text: 'Protected packaging for safe delivery.' },
-      { icon: '💬', title: 'Growing advice', text: 'Questions? Our team is happy to help.' },
+      { icon: 'ðŸŒ¿', title: 'Carefully selected', text: 'Hand-picked and checked before it leaves us.' },
+      { icon: 'ðŸ“¦', title: 'Packed with care', text: 'Protected packaging for safe delivery.' },
+      { icon: 'ðŸ’¬', title: 'Growing advice', text: 'Questions? Our team is happy to help.' },
     ];
   });
 
@@ -82,6 +82,6 @@ export class ProductDetailsPage {
   }
 
   onImageError(event: Event): void {
-    (event.target as HTMLImageElement).src = 'assets/icon/favicon.png';
+    (event.target as HTMLImageElement).src = 'assets/icon/flower-mark.svg';
   }
 }
